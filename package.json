@@ -1,0 +1,24 @@
+{
+  "name": "blottsite",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "package": "svelte-kit package",
+    "preview": "svelte-kit preview"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "next",
+    "@sveltejs/kit": "next",
+    "svelte": "^3.44.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fontsource/fira-mono": "^4.5.0",
+    "@lukeed/uuid": "^2.0.0",
+    "bcrypt": "^5.0.1",
+    "cookie": "^0.4.1",
+    "mongodb": "^4.2.2",
+    "xml2js": "^0.4.23"
+  }
+}
