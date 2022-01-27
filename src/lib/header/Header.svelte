@@ -8,7 +8,7 @@
 	import { fly, fade, slide } from 'svelte/transition';
 	import Userbox from '../Userbox.svelte';
 
-	console.log(userinfo)
+	// console.log(userinfo)
 
 	const dispatch = createEventDispatcher()
 	const type = 1

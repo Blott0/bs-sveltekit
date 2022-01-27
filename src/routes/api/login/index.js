@@ -47,6 +47,7 @@ export async function post (request) {
                 _uid: result._id,
                 username: result.username,
                 email: result.email,
+                avatar: result.avatar,
                 expires: new Date()
             })
             const headers = {

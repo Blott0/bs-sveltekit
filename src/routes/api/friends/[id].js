@@ -59,9 +59,9 @@ export async function put (request) {
         }
     }
     else {
-        console.log(idlist)
-        console.log(ObjectId(newfriend._id).toString())
-        console.log(idlist.includes(newfriend._id.toString()))
+        // console.log(idlist)
+        // console.log(ObjectId(newfriend._id).toString())
+        // console.log(idlist.includes(newfriend._id.toString()))
         const result = await collection.updateOne({_id: ObjectId(request.params.id)}, { $push: { friends: ObjectId(newfriend._id) } } )
         if (result) {
             return {
@@ -70,6 +70,4 @@ export async function put (request) {
             }
         }
     }
-    
-    console.log(newfriend)
 }

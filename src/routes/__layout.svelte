@@ -8,7 +8,8 @@
 				userinfo: {
 					username: session.username,
 					_id: session.uid,
-					email: session.email
+					email: session.email,
+					avatar: session.avatar
 				}
 			}
 		}
@@ -37,6 +38,8 @@
 	export let authenticated
 	export let userinfo
 
+	user.set(authenticated ? userinfo : {username: 'login', _id: undefined})
+
 	let fail = false
 	let loginToggle = false
 	let color = authenticated ? 'green' : 'orange'
@@ -57,6 +60,14 @@
 	friends.subscribe(value => {
 		friendslist = value.itemsArray
 	})
+
+	let userstore
+	user.subscribe(value => {
+		userstore = value
+	})
+
+	$:console.log(userstore)
+
 
 	let games = ownedGames
 

@@ -21,6 +21,7 @@ export const handle = async ({ request, resolve }) => {
 			request.locals.uid = result._uid.toString()
 			request.locals.username = result.username
 			request.locals.email = result.email
+			request.locals.avatar = result.avatar?.toString() || undefined
 		}
 		else {
 			request.locals.authenticated = false
@@ -53,7 +54,8 @@ export function getSession(request) {
 			authenticated: request.locals.authenticated,
 			uid: request.locals.uid,
 			username: request.locals.username,
-			email: request.locals.email
+			email: request.locals.email,
+			avatar: request.locals.avatar
 		}
 		
 	}

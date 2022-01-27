@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store';
 
 export const user = writable({
-    username: 'click to log in',
-    _id: 0
+    username: 'login',
+    _id: undefined
 });
 
 export const gameslist = writable({
