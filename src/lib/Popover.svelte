@@ -63,4 +63,17 @@
         padding: 6px 10px;
     }
 
+    button {
+        background-color: rgb(88, 88, 145);
+        color: white;
+        float: right;
+        cursor: pointer;
+        font-weight: bold;
+        transition: .2s ease-in-out;
+    }
+    
+    button:hover {
+        background-color: rgb(140, 140, 220);
+    }
+
 </style>

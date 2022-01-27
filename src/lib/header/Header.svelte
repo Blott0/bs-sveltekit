@@ -1,12 +1,12 @@
 <script>
 
-	export let color;
-	export let userstore;
+	export let color
+	export let userstore
 
-	import { page } from '$app/stores';
-	import { createEventDispatcher } from 'svelte';
-	import { fly, fade, slide } from 'svelte/transition';
-	import Userbox from '../Userbox.svelte';
+	import { page } from '$app/stores'
+	import { createEventDispatcher } from 'svelte'
+	import { fly, fade, slide } from 'svelte/transition'
+	import Userbox from '../Userbox.svelte'
 
 	// console.log(userinfo)
 
@@ -14,12 +14,13 @@
 	const type = 1
 	let openNav
 	let toggleOptions
-	$:title = $page.path == '/' ? 'Home' :
+	$:title = $page.path == '/' ? 'Dicey point' :
 		$page.path == '/collection' ? 'Collection' :
 		$page.path == '/games' ? 'Games' :
 		$page.path == '/stats' ? 'Stats' :
 		$page.path == '/friends' ? 'Friends' :
-		$page.path == '/unauthenticated' ? 'login required' : '?';
+		$page.path == '/about' ? 'About' :
+		$page.path == '/unauthenticated' ? 'login required' : '?'
 
 	const pathOptions = {
 		Collection: [
@@ -52,12 +53,12 @@
 
 	function openuser() {
 		if (!userstore._id) {
-			dispatch('login', 'toggle');
+			dispatch('login', 'toggle')
 		}
 		else {
-			dispatch('toggle', { component: 'Usereditor' });
-		};
-	};
+			dispatch('toggle', { component: 'Usereditor' })
+		}
+	}
 
 </script>
 
@@ -93,6 +94,11 @@
 				<li class:active={$page.path === '/stats'} on:click="{ e => openNav = false }"><a sveltekit:prefetch href="/stats">
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392.6 392.6" style="enable-background:new 0 0 392.598 392.598" xml:space="preserve"><path style="fill:#ffc10d" d="M92.8 207.3h31.8v163.6H92.8z"/><path style="fill:#fff" d="M201 94.5h31.8v276.3H201z"/><path style="fill:#56ace0" d="M309.1 37.7h31.8v333.1h-31.8z"/><path style="fill:#194f82" d="M381.7 370.8h-18.9v-344c0-6-4.9-11-11-11h-53.6c-6 0-11 4.9-11 11v344h-32.6V83.6c0-6-4.9-11-11-11H190c-6 0-10.9 5-10.9 11v287.2h-32.5V196.3c0-6-4.9-10.9-11-10.9H81.9c-6 0-10.9 4.9-10.9 11v174.4H21.8V11A11 11 0 1 0 0 11v370.8c0 6 4.8 10.9 11 10.9h370.7a11 11 0 1 0 0-21.8zm-257 0H92.7V207.3h31.8v163.5zm108 0H201V94.5h31.8v276.3zm108.3 0h-31.8V37.7H341v333.1z"/></svg>
 					Stats</a></li>
+				<li class:active={$page.path === '/about'} on:click="{ e => openNav = false }"><a sveltekit:prefetch href="/about">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392.593 392.593" style="enable-background:new 0 0 392.593 392.593" xml:space="preserve"><path style="fill:#fff" d="M21.893 312.436H198.83c-15.58-14.675-25.406-35.491-25.406-58.57 0-37.56 25.794-68.978 60.574-77.899v-77.77h-65.487c-6.012 0-10.925-4.848-10.925-10.925V21.851H21.893v290.585z"/><path style="fill:#ffc10d" d="m218.612 76.477-39.176-39.176v39.176zM321.464 297.438c-3.103 4.784-6.659 9.18-10.731 13.317a78.761 78.761 0 0 1-13.317 10.731l44.283 44.283c6.4 6.4 17.648 6.4 24.048 0 6.206-6.853 6.982-16.679 0-24.048l-44.283-44.283z"/><path style="fill:#194f82" d="M49.82 84.428h68.525c6.012 0 10.925-4.848 10.925-10.925 0-6.012-4.848-10.925-10.925-10.925H49.82c-6.012 0-10.925 4.848-10.925 10.925A10.87 10.87 0 0 0 49.82 84.428zM49.82 142.352h155.345c6.012 0 10.925-4.848 10.925-10.925 0-6.012-4.848-10.925-10.925-10.925H49.82c-6.012 0-10.925 4.848-10.925 10.925 0 6.011 4.848 10.925 10.925 10.925zM152.543 178.36H49.755c-6.012 0-10.925 4.848-10.925 10.925 0 6.012 4.848 10.925 10.925 10.925h102.788c6.012 0 10.925-4.848 10.925-10.925s-4.848-10.925-10.925-10.925zM118.345 236.218H49.82c-6.012 0-10.925 4.848-10.925 10.925s4.848 10.925 10.925 10.925h68.525c6.012 0 10.925-4.848 10.925-10.925s-4.913-10.925-10.925-10.925z"/><circle style="fill:#fff" cx="253.973" cy="253.867" r="59.281"/><circle style="fill:#56ace0" cx="253.973" cy="253.867" r="36.396"/><path style="fill:#194f82" d="m381.133 326.141-50.101-50.101c2.069-7.111 3.232-14.61 3.232-22.303 0-43.766-34.974-79.257-78.481-80.356V87.337c0-2.844-1.164-5.624-3.168-7.758L176.204 3.168C174.2 1.164 171.42 0 168.446 0H11.032C5.02 0 .107 4.848.107 10.925v312.436c0 6.012 4.848 10.925 10.925 10.925l242.877.065c7.822 0 15.321-1.164 22.432-3.232l49.972 49.972c16.743 16.291 40.857 14.352 54.885 0 15.062-15.127 15.062-39.758-.065-54.95zM179.436 37.236l39.176 39.176h-39.176V37.236zm-157.543 275.2V21.851H157.65v65.422c0 6.012 4.848 10.925 10.925 10.925h65.552v77.705c-34.78 8.857-60.574 40.339-60.574 77.899 0 23.079 9.826 43.895 25.406 58.57H21.893v.064zm232.08.647c-32.711 0-59.281-26.505-59.281-59.281s26.505-59.281 59.281-59.281 59.281 26.505 59.281 59.281-26.634 59.281-59.281 59.281zm111.774 52.557c-6.4 6.4-17.648 6.4-24.048 0l-44.283-44.283c9.568-6.206 17.778-14.352 24.048-24.048l44.283 44.283c6.594 6.658 6.594 17.39 0 24.048z"/></svg>
+						About
+					</a>
+				</li>
 			</ul>
 		</nav>
 	{/if}

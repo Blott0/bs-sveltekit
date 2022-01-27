@@ -43,6 +43,11 @@
 	let color = authenticated ? 'green' : 'orange'
 	let edituser
 	let popover
+	let colors = {
+		1: 'rgb(88, 88, 145)',
+		2: 'orange',
+		3: 'red'
+	}
 
 	let itemsArray
 	gameslist.subscribe(value => {
@@ -109,7 +114,7 @@
 				});
 				popover = {
 					title: 'success',
-					message: 'you have succefully logged in',
+					message: 'you have successfully logged in',
 					severity: 1,
 					options: [ 'ok' ]
 				} 
@@ -171,7 +176,7 @@
 	{/if}
 {/if}
 
-<Popover {popover} on:reply="{ e => popover = false }" />
+<Popover {popover} {colors} on:reply="{ e => popover = false }" />
 
 <style>
 	
