@@ -24,6 +24,9 @@
 </section>
 
 <style>
+    * {
+        text-align: center;
+    }
     section {
         display: flex;
         flex-direction: column;

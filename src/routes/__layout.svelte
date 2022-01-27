@@ -134,35 +134,6 @@
 </script>
 
 <svelte:head>
-	
-	<!-- <link href="https://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet">
-	{#if checked} -->
-		<!-- <style>
-			body {
-			min-height: 100vh;
-			margin: 0;
-			background: linear-gradient(
-					180deg,
-					rgb(0,0,0) 0%,
-					rgb(0,245,255) 10.45%,
-					rgb(32,53,200) 41.35%
-				);
-			}
-		</style> -->
-		<!-- <style type="text/css"> -->
-			<!-- /* <link rel="stylesheet" href="$lib/dark.css"> */
-			body {
-			min-height: 100vh;
-			margin: 0;
-			background: linear-gradient(
-					180deg,
-					rgb(0,0,0) 0%,
-					rgb(0,245,255) 10.45%,
-					rgb(32,53,200) 41.35%
-				);
-			}
-		</style>
-	{/if} -->
 
 </svelte:head>
 
@@ -196,39 +167,19 @@
 	</div>
 {/if}
 
-<!-- {#if optionstoggle.Addtocollection}
-	<div transition:fade class="screen" on:click="{ e => optionstoggle.Addtocollection = !optionstoggle.Addtocollection }">
-		<Addtocollection on:gameadded="{ e => gameAdded(e.detail) }" {userinfo} {itemsArray} {ownedGames} />
-	</div>
-{/if} -->
-
-<!-- {#if optionstoggle.Playadder}
-	<div transition:fade class="screen" on:click="{ e => optionstoggle.Playadder = !optionstoggle.Playadder }">
-		<Playadder {games} {users} />
-	</div>
-{/if} -->
-
 <Popover {popover} on:reply="{ e => popover = false }" />
 
-
 <style>
-	/* main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
-	} */
+	
 	main {
 		padding: 8px;
     	margin-bottom: 18px;
 		background-color: #ededed;
+        min-height: calc(100vh - 100px);
 	}
 
 	.screen {
+		z-index: 1;
 		position: fixed;
 		width: 100%;
 		height: 100%;
@@ -252,22 +203,5 @@
 	footer > p {
 		margin: 0
 	}
-
-	/* footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	} */
+	
 </style>

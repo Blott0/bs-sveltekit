@@ -120,7 +120,8 @@
 	header {
 		position: -webkit-sticky;
 		position: sticky;
-		background-color: rgb(130, 160, 200);
+		/* background-color: rgb(130, 160, 200); */
+		background-color: rgb(117, 150, 194);
 		top: 0;
 		padding: 8px;
 		display: flex;
@@ -188,7 +189,8 @@
 	}
 
 	nav > ul {
-		background-color: rgb(130, 160, 200);
+		/* background-color: rgb(130, 160, 200); */
+		background-color: rgb(117, 150, 194);
 		max-width: 80%;
 		min-width: 180px;
 		display: inline-flex;
@@ -258,5 +260,7 @@
 	h1 {
 		color: white;
 		margin: 0;
+		text-transform: uppercase;
+		font-weight: 900;
 	}
 	</style>

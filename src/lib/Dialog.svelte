@@ -37,6 +37,7 @@
         left: 50%;
         transform: translateY(-50%) translateX(-50%);
         max-width: 200px;
+        z-index: 1;
     }
 
     fieldset {
