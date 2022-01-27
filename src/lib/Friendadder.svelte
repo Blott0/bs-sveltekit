@@ -5,8 +5,6 @@
 
     export let userinfo
 
-    console.log(userinfo)
-
     const dispatch = createEventDispatcher()
     let query
 
