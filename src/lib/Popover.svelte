@@ -1,83 +1,66 @@
 <script>
 
     export let popover;
+    export let colors = {
+        1: 'green',
+        2: 'orange',
+        3: 'red'
+    }
 
     import { createEventDispatcher } from 'svelte';
-    import { fade, fly } from 'svelte/transition';
+    import { fly } from 'svelte/transition';
     const dispatch = createEventDispatcher();
 
 </script>
 
 {#if popover}
 
-    <div transition:fade class="screen" on:click="{e => dispatch('reply', 'ok')}" />
-
-    <div transition:fly="{{ x: 1000 }}" on:click|stopPropagation data-severity="{popover.severity ? popover.severity : 0}" class="messagebox">
-        <span class="title">{popover.title}</span>
-        <p>{popover.message}</p>
-
-        <div class="buttons">
+    <form on:click|stopPropagation transition:fly="{{ x: 1000 }}">
+        <fieldset style="border-color:{colors[popover.severity]}">
+            <legend style="background-color:{colors[popover.severity]}">{popover.title}</legend>
+            <p>{popover.message}</p>
             {#if popover.options.includes('ok')}
-                <button on:click="{e => dispatch('reply', 'ok')}">
+                <button on:click|preventDefault="{e => dispatch('reply', 'ok')}">
                     ok
                 </button>
             {/if}
-        </div>
-    </div>
-
-    
+        </fieldset>
+    </form>
 
 {/if}
 
 <style>
 
-    .screen {
-        position: fixed;
-        left: 0;
-        width: 100%;
-        top: 0;
-        height: 100%;
-        background-color: rgba(30,30,30,.4);
+    * {
+        border-radius: 5px;
     }
 
-    .messagebox {
+    form {
         position: fixed;
         left: 50%;
         top: 50%;
         transform: translateY(-50%) translateX(-50%);
-        padding: 10px;
         display: flex;
-        background-color: white;
         flex-direction: column;
-        border-radius: 5px;
-        overflow: hidden;
+        z-index: 1;
     }
 
-    .title {
-        font-size: smaller;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 2px;
+    fieldset {
+        border-style: solid;
+        background-color: lightgray;
     }
 
-    .messagebox[data-severity = '0'] {
-        border: 2px solid rgb(100,100,170);
-    }
-
-    .messagebox[data-severity = '0'] > .title {
-        background-color: rgb(100,100,170);
+    legend {
+        background-color: rgb(88, 88, 145);
         color: white;
+        font-weight: bold;
+        padding: 6px 10px;
     }
 
-    .messagebox[data-severity = '1'] > .title {
-        background-color: orange;
-    }
-
-    .buttons {
-        width: 100%;
-        display: flex;
+    input, button {
+        border: none;
+        box-sizing: border-box;
+        padding: 6px 10px;
     }
 
 </style>

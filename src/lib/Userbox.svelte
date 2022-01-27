@@ -1,21 +1,21 @@
 <script>
     
-    export let userinfo;
+    export let userstore;
     export let type;
     export let color;
 
 </script>
 
-<div style="border-color:{color ? color : 'blue'}" data-type="{type}" title="{userinfo.username}{userinfo.email ? ' - ' + userinfo.email : ''}" class="wrapper">
+<div style="border-color:{color ? color : 'blue'}" data-type="{type}" title="{userstore.username}{userstore.email ? ' - ' + userstore.email : ''}" class="wrapper">
 
     <div class="image">
-        {#if userinfo.image}
+        {#if userstore.image}
         {:else}
             <svg viewBox="0 -8 63 67"><path fill="black" fill-rule="evenodd" d="M31.5-7.3A25.2 25.2 0 0 0 6.3 17.9a25.2 25.2 0 0 0 5.6 15.8A31.5 31.5 0 0 0 0 58.2a31.5 31.5 0 0 0 0 1h63a31.5 31.5 0 0 0 0-1 31.5 31.5 0 0 0-12-24.6A25.2 25.2 0 0 0 56.7 18 25.2 25.2 0 0 0 31.5-7.3z"></path></svg>
         {/if}
     </div>
     <div class="name">
-        <p style="background-color:{color ? color : 'blue'}">{userinfo.username}</p>
+        <p style="background-color:{color ? color : 'blue'}">{userstore.username}</p>
     </div>
 
 </div>
@@ -33,7 +33,7 @@
     width: 56px;
     border-width: 1px;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .wrapper[data-type = "2"] {
@@ -65,7 +65,7 @@
 .wrapper[data-type = "1"] > .name > p {
     margin: 0;
     transform: translateY(-4px);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
 }
 

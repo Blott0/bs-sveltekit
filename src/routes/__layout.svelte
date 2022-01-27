@@ -1,7 +1,6 @@
 <script context="module">
 
 	export async function load({session}) {
-		console.log('_layout:', session)
 		return {
 			props: {
 				authenticated: session.authenticated,
@@ -20,7 +19,6 @@
 
 <script>
 	
-	// import { user } from './stores.js';
 	import Header from '$lib/header/Header.svelte'
 	import Screen from '$lib/Screen.svelte'
 	import Popover from '$lib/Popover.svelte'
@@ -44,7 +42,7 @@
 	let loginToggle = false
 	let color = authenticated ? 'green' : 'orange'
 	let edituser
-	let popover = false
+	let popover
 
 	let itemsArray
 	gameslist.subscribe(value => {
@@ -66,9 +64,6 @@
 		userstore = value
 	})
 
-	$:console.log(userstore)
-
-
 	let games = ownedGames
 
 	let optionstoggle = {}
@@ -83,7 +78,7 @@
 		popover = {
 			title: 'add game failed',
 			message: message.error,
-			severity: 1,
+			severity: 2,
 			options: [ 'ok' ]
 		};
 	}
@@ -94,7 +89,7 @@
 		popover = {
 			title: 'message',
 			message: 'Game addded to collection',
-			severity: 0,
+			severity: 1,
 			options: [ 'ok' ]
 		};
 	}
@@ -112,10 +107,22 @@
 					email: data.email,
 					_id: data._id
 				});
+				popover = {
+					title: 'success',
+					message: 'you have succefully logged in',
+					severity: 1,
+					options: [ 'ok' ]
+				} 
+				toggle = false
 			}
 			else {
-				// console.log(data.result)
 				fail = true
+				popover = {
+					title: 'fail',
+					message: 'login failed',
+					severity: 2,
+					options: [ 'ok' ]
+				} 
 			}
             return;
         } 
@@ -138,7 +145,7 @@
 
 </svelte:head>
 
-<Header {color} {userinfo} on:login='{ e => toggle = "login" }' on:toggle="{ e => toggleOption(e.detail.component) }" />
+<Header {color} {userstore} on:login='{ e => toggle = "login" }' on:toggle="{ e => toggleOption(e.detail.component) }" />
 
 <main>
 	<slot />
@@ -148,7 +155,7 @@
 	<p>BlottSite - by Blotto</p>
 </footer>
 
-{#if toggle}
+{#if (toggle || popover)}
 	<div transition:fade class="screen" on:click="{ e => toggle = false }" />
 	{#if toggle === 'login'}
 		<Dialog on:loginAttempt="{ e => login(e.detail) }" />

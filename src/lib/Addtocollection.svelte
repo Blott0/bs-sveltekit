@@ -74,6 +74,9 @@
                 const data3 = await res.json();
                 options = data3.boardgames.boardgame
                 break
+            case 403:
+                dispatch('gameaddfailed', { error: 'user not authenticated or login has expired'} )
+                break
             case 406:
                 dispatch('gameaddfailed', { error: 'no game found'} )
                 break

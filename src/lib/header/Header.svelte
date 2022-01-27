@@ -1,7 +1,7 @@
 <script>
 
 	export let color;
-	export let userinfo;
+	export let userstore;
 
 	import { page } from '$app/stores';
 	import { createEventDispatcher } from 'svelte';
@@ -51,7 +51,7 @@
 	}
 
 	function openuser() {
-		if (!userinfo._id) {
+		if (!userstore._id) {
 			dispatch('login', 'toggle');
 		}
 		else {
@@ -112,7 +112,7 @@
 
 	<div class="corner">
 		<div style="cursor:pointer" on:loginAttempt on:click="{ e => openuser() }">
-			<Userbox {userinfo} {type} {color} />
+			<Userbox {userstore} {type} {color} />
 		</div>
 	</div>
 </header>
