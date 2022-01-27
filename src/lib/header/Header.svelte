@@ -8,6 +8,8 @@
 	import { fly, fade, slide } from 'svelte/transition';
 	import Userbox from '../Userbox.svelte';
 
+	console.log(userinfo)
+
 	const dispatch = createEventDispatcher()
 	const type = 1
 	let openNav
@@ -17,7 +19,7 @@
 		$page.path == '/games' ? 'Games' :
 		$page.path == '/stats' ? 'Stats' :
 		$page.path == '/friends' ? 'Friends' :
-		$page.path == '/unauthenticated' ? 'unauthenticated' : '?';
+		$page.path == '/unauthenticated' ? 'login required' : '?';
 
 	const pathOptions = {
 		Collection: [
@@ -48,12 +50,12 @@
 		dispatch('toggle', o)
 	}
 
-	function login() {
-		if (color !== "green") {
+	function openuser() {
+		if (!userinfo._id) {
 			dispatch('login', 'toggle');
 		}
 		else {
-			dispatch('edituser', 'toggle');
+			dispatch('toggle', { component: 'Usereditor' });
 		};
 	};
 
@@ -109,7 +111,7 @@
 	</div>
 
 	<div class="corner">
-		<div style="cursor:pointer" on:loginAttempt on:click="{ e => login() }">
+		<div style="cursor:pointer" on:loginAttempt on:click="{ e => openuser() }">
 			<Userbox {userinfo} {type} {color} />
 		</div>
 	</div>
@@ -127,6 +129,11 @@
 		display: flex;
 		justify-content: space-between;
 		z-index: 1;
+	}
+
+	h1 {
+		font-size: 19px;
+		text-align: center;
 	}
 
 	label {

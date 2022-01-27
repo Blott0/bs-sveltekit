@@ -1,6 +1,7 @@
 <script context="module">
 
 	export async function load({session}) {
+		console.log('_layout:', session)
 		return {
 			props: {
 				authenticated: session.authenticated,
@@ -31,7 +32,7 @@
 	import { fade } from 'svelte/transition'
 	import '../app.css'
 
-	import { gameslist, ownedgames, friends } from './stores.js'
+	import { user, gameslist, ownedgames, friends } from './stores.js'
 
 	export let authenticated
 	export let userinfo
@@ -64,18 +65,7 @@
 	let toggle
 
 	function toggleOption(o) {
-
 		toggle = o
-
-		// if (!optionstoggle[o]) {
-		// 	optionstoggle = false
-		// 	optionstoggle[o] = true
-		// 	// console.log('optionstoggle:', optionstoggle)
-		// }
-		// else {
-		// 	optionstoggle[o] = false
-		// 	// console.log(optionstoggle)
-		// }
 	}
 
 	function gameaddfailed(message) {
@@ -137,7 +127,7 @@
 
 </svelte:head>
 
-<Header {color} {userinfo} on:login='{ e => toggle = "login" }' on:edituser="{ e => edituser = !edituser }" on:toggle="{ e => toggleOption(e.detail.component) }" />
+<Header {color} {userinfo} on:login='{ e => toggle = "login" }' on:toggle="{ e => toggleOption(e.detail.component) }" />
 
 <main>
 	<slot />
@@ -158,13 +148,9 @@
 		<Friendadder on:friendadded="{e => friendadded(e.detail)}" on:failedaddfriend="{e => failedaddfriend(e.detail)}" {userinfo} />
 	{:else if toggle === 'Playadder'}
 		<Playadder {ownedGames} {friendslist} {userinfo} />
-	{/if}
-{/if}
-
-{#if edituser}
-	<div transition:fade class="screen" on:click="{ e => edituser = !edituser }">
+	{:else if toggle === 'Usereditor'}
 		<Usereditor {userinfo} />
-	</div>
+	{/if}
 {/if}
 
 <Popover {popover} on:reply="{ e => popover = false }" />
