@@ -5,15 +5,26 @@
     export let userinfo
 
     let newavatar
-    // let form
+    let newpass1
+    let newpass2
+    let passchanged
+    $: same = newpass1 ? newpass1 === newpass2 ? true : false : false
+    $: legal = newpass1 ? newpass1.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&-])[A-Za-z\d@$!%*#?&-]{8,}$/) : false
 
-    $:console.log(newavatar)
     function logout() {
         
     }
     
-    function ok() {
+    // function ok() {
         
+    // }
+
+    async function setpass(pass) {
+        const response = await fetch('/api/login', {method: "put", body: newpass1})
+        const result = await response.json()
+        if (result.result === 'success') {
+            passchanged = true
+        }
     }
 
     async function setavatar(file) {
@@ -37,16 +48,34 @@
             <label for="id">id:</label>
             <input value="{userinfo._id}" id="id" type="text" disabled>
             <hr>
-            option to change password goes here
-            <hr>
             <label for="avatar">choose a new avatar:</label>
             <input accept="image/*" bind:files="{newavatar}" id="avatar" type="file">
             {#if newavatar}
                 <button transition:slide on:click|preventDefault="{e => setavatar(newavatar)}">set avatar</button>
             {/if}
             <hr>
+            {#if !passchanged}
+                <label for="new1">change password:</label>
+                <input bind:value="{newpass1}" id="new1" type="password" placeholder="password"><br>
+                <label for="new2">retype password:</label>
+                <input bind:value="{newpass2}" id="new2" type="password" placeholder="password">
+                {#if !legal}
+                    <br>
+                    <p transition:slide>password needs at least 1 number and letter, 1 special character (@$!%*#?&-)</p>
+                {/if}
+                {#if same && legal}
+                    <button transition:slide on:click|preventDefault="{e => setpass(newpass1)}">set new password</button>
+                {:else if newpass1 && !newpass2}
+                    <p transition:slide>retype password</p>
+                {:else if newpass1 && newpass2 && legal}
+                    <p transition:slide>passwords dont match</p>
+                {/if}
+            {:else}
+                <p>password changed</p>
+            {/if}
+            <hr>
             <button on:click|preventDefault="{e => logout()}">logout</button>
-            <button on:click|preventDefault="{e => ok()}">ok</button>
+            <!-- <button on:click|preventDefault="{e => ok()}">ok</button> -->
         </fieldset>
     </form>
 
