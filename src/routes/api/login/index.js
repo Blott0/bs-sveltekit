@@ -12,15 +12,8 @@ export async function post (request) {
     const dbConnection = await clientPromise
     const db = dbConnection.db("BlottBase")
     const collection = db.collection('users')
-    // const saltRounds = 10
     
     const result = await collection.findOne({ email : JSON.parse(request.body).email })
-    // const result = await collection.findOne({ email : JSON.stringify(request.body.email) })
-
-    // bcrypt.hash(JSON.parse(request.body).password, saltRounds, function(err, hash) {
-    //     // Store hash in your password DB.
-    //     console.log(hash)
-    // });
 
     if ((result === null) || !JSON.parse(request.body).password) {
         return {
@@ -104,8 +97,8 @@ export async function put(request) {
         } )
         // returns before actually doing anything (async problem)
         return {
-                statuds: 200,
-                body: {result: 'success'}
-            }
+            statuds: 200,
+            body: {result: 'success'}
+        }
     }
 }
