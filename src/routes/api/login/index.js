@@ -101,8 +101,8 @@ export async function put(request) {
             return result
         }).then( function(result) {
             console.log('returning:', result)
-            
         } )
+        // returns before actually doing anything (async problem)
         return {
                 statuds: 200,
                 body: {result: 'success'}
