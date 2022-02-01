@@ -76,7 +76,7 @@ export async function put(request) {
             body:  { result: 'not authenticated' }
         }
     }
-    const match = request.body.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&-])[A-Za-z\d@$!%*#?&-]{8,}$/)
+    const match = request.body.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&-_])[A-Za-z\d@$!%*#?&-_]{8,}$/)
     if (!match) {
         return {
             status: 200,

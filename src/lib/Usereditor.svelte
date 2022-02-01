@@ -9,7 +9,7 @@
     let newpass2
     let passchanged
     $: same = newpass1 ? newpass1 === newpass2 ? true : false : false
-    $: legal = newpass1 ? newpass1.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&-])[A-Za-z\d@$!%*#?&-]{8,}$/) : false
+    $: legal = newpass1 ? newpass1.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&-_])[A-Za-z\d@$!%*#?&-_]{8,}$/) : false
 
     function logout() {
         
@@ -61,7 +61,7 @@
                 <input bind:value="{newpass2}" id="new2" type="password" placeholder="password">
                 {#if !legal}
                     <br>
-                    <p transition:slide>password needs at least 1 number and letter, 1 special character (@$!%*#?&-)</p>
+                    <p transition:slide>password needs at least 1 number and letter, 1 special character (@$!%*#?&-_)</p>
                 {/if}
                 {#if same && legal}
                     <button transition:slide on:click|preventDefault="{e => setpass(newpass1)}">set new password</button>
@@ -107,8 +107,23 @@
         padding: 6px 10px;
     }
 
+    input:not(:first-of-type) {
+        margin-top: 4px;
+    }
+
     button, input {
         border: none;
+        box-sizing: border-box;
+        padding: 6px 10px;
+    }
+
+    button {
+        background-color: rgb(88, 88, 145);
+        color: white;
+        float: right;
+        cursor: pointer;
+        font-weight: bold;
+        transition: .2s ease-in-out;
     }
     
 </style>
