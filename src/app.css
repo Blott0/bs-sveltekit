@@ -113,6 +113,14 @@ button:focus:not(:focus-visible) {
 
 }
 
+.players > svg {
+	height: 16px;
+}
+
+.weight >svg {
+	height: 24px;
+}
+
 .gameslist > ul > li + li:not(.upperspacer) {
 	margin-bottom: 12px;
 }
