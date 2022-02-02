@@ -181,10 +181,10 @@
 <style>
 	
 	main {
-		padding: 8px;
+		/* padding: 8px; */
     	margin-bottom: 24px;
 		background-color: #ededed;
-        min-height: calc(100vh - 100px);
+        min-height: calc(100vh - 90px);
 		box-shadow: 0 4px 14px rgba(0,0,0,.4);
 	}
 

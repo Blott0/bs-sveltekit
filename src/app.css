@@ -109,6 +109,10 @@ button:focus:not(:focus-visible) {
 	}
 } */
 
+section {
+	padding: 8px;
+}
+
 .gameslist {
 
 }
