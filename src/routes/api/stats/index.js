@@ -33,9 +33,21 @@ export async function post (request) {
 
     const newplay = objectidify(JSON.parse(request.body))
 
-    console.log(newplay)
-
     const result = await collection.insertOne(newplay)
+
+    const logs = db.collection('logs')
+    const log = {
+        date: new Date(),
+        user: {
+            id: ObjectId(request.locals.uid),
+            username: request.locals.username
+        },
+        event: {
+            category: 'plays',
+            target: result.insertedId
+        }
+    }
+    const logging = await logs.insertOne(log)
 
     if (result) {
         return {

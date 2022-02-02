@@ -182,9 +182,10 @@
 	
 	main {
 		padding: 8px;
-    	margin-bottom: 18px;
+    	margin-bottom: 24px;
 		background-color: #ededed;
         min-height: calc(100vh - 100px);
+		box-shadow: 0 4px 14px rgba(0,0,0,.4);
 	}
 
 	.screen {
@@ -202,12 +203,13 @@
 
 	footer {
 		background-color: yellowgreen;
-		padding: 0 8px;
+		padding: 16px 8px 2px 8px;
 		position: fixed;
 		bottom: 0;
 		left: 0;
 		right: 0;
 		z-index: -1;
+		text-align: center;
 	}
 	footer > p {
 		margin: 0

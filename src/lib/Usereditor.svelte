@@ -14,10 +14,6 @@
     function logout() {
         
     }
-    
-    // function ok() {
-        
-    // }
 
     async function setpass(pass) {
         const response = await fetch('/api/login', {method: "put", body: newpass1})
@@ -64,7 +60,8 @@
                     <p transition:slide>password needs at least 1 number and letter, 1 special character (@$!%*#?&-_)</p>
                 {/if}
                 {#if same && legal}
-                    <button transition:slide on:click|preventDefault="{e => setpass(newpass1)}">set new password</button>
+                    <br>
+                    <button class="password" transition:slide on:click|preventDefault="{e => setpass(newpass1)}">set new password</button>
                 {:else if newpass1 && !newpass2}
                     <p transition:slide>retype password</p>
                 {:else if newpass1 && newpass2 && legal}
@@ -75,7 +72,6 @@
             {/if}
             <hr>
             <button on:click|preventDefault="{e => logout()}">logout</button>
-            <!-- <button on:click|preventDefault="{e => ok()}">ok</button> -->
         </fieldset>
     </form>
 
@@ -90,7 +86,6 @@
         top: 50%;
         left: 50%;
         transform: translateY(-50%) translateX(-50%);
-        /* max-width: 200px; */
         z-index: 1;
     }
 
@@ -120,10 +115,17 @@
     button {
         background-color: rgb(88, 88, 145);
         color: white;
-        float: right;
         cursor: pointer;
         font-weight: bold;
         transition: .2s ease-in-out;
+    }
+
+    button.password {
+        margin-top: 4px;
+    }
+
+    button:not(.password) {
+        float: right;
     }
     
 </style>
