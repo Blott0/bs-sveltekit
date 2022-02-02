@@ -9,22 +9,24 @@
     <input id="1" name="index" data-index="1" hidden type="radio">
     <input id="2" name="index" data-index="2" hidden type="radio">
     <div class="logs">
-    {#each logs as log, i}
+        {#if logs.length === 3}
+            {#each logs as log, i}
 
-        <div class="log">
-            {format(new Date(log.date), 'MMMM do yyyy')}
-            {log.user.username}
-            {#if log.event.category === 'collection'}
-                game added: <a href="games/{log.target._id}">{log.target.name}</a>
-            {:else if log.event.category === 'plays'}
-                result logged: {log.target._id}
-            {/if}
-            <label for="{(i - 1) > -1 ? (i - 1) : 2}"><span /></label>
-            <label for="{(i + 1) > 2 ? 0 : (i + 1)}"><span /></label>
-        </div>
+                <div class="log">
+                    {format(new Date(log.date), 'MMMM do yyyy')}
+                    {log.user.username}
+                    {#if log.event.category === 'collection'}
+                        game added: <a href="games/{log.target._id}">{log.target.name}</a>
+                    {:else if log.event.category === 'plays'}
+                        result logged: <a href="stats/{log.target._id}">{log.target._id}</a>
+                    {/if}
+                    <label for="{(i - 1) > -1 ? (i - 1) : 2}"><span /></label>
+                    <label for="{(i + 1) > 2 ? 0 : (i + 1)}"><span /></label>
+                </div>
 
-    {/each}
-</div>
+            {/each}
+        {/if}
+    </div>
 </div>
 
 

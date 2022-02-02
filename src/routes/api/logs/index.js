@@ -5,7 +5,7 @@ export async function get(request) {
     const db = dbConnection.db("BlottBase")
     const logscollection = db.collection('logs')
 
-    const log = await logscollection.find({}).limit(3).toArray()
+    const log = await logscollection.find({}).sort({date: -1}).limit(3).toArray()
     console.log(log)
     return {
         status: 200,
