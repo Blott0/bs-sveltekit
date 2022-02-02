@@ -2,7 +2,7 @@
 
 	export async function load({ page, fetch, session, stuff }) {
 
-		const logsresult = await fetch('api/logs', {method: 'get'})
+		const logsresult = await fetch('/api/logs', {method: 'get'})
 		const logs = await logsresult.json()
 		console.log(logs)
 
@@ -10,12 +10,12 @@
 			const log = logs[index];
 			if (log.event.category === 'collection') {
 				const gameid = log.event.target
-				const game = await fetch('api/games/' + gameid, {method: 'get'})
+				const game = await fetch('/api/games/' + gameid, {method: 'get'})
 				logs[index].target = await game.json()
 			}
 			else if (log.event.category === 'plays') {
 				const playid = log.event.target
-				const play = await fetch('api/stats/' + playid, {method: 'get'})
+				const play = await fetch('/api/stats/' + playid, {method: 'get'})
 				logs[index].target = await play.json()
 			}
 		}

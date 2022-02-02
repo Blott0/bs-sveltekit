@@ -18,7 +18,7 @@
     
 	export async function load({ page, fetch, session, stuff }) {
 
-		const res = await fetch('api/games', {method: 'get'});
+		const res = await fetch('/api/games', {method: 'get'});
 
         const data = await res.json();
 

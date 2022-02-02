@@ -8,7 +8,7 @@
             }
         }
 
-        const res = await fetch('api/friends/' + session.uid, {method: 'get'});
+        const res = await fetch('/api/friends/' + session.uid, {method: 'get'});
         const friendslist = await res.json();
         
         return {

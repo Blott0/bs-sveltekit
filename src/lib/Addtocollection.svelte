@@ -50,7 +50,7 @@
             query = gametoadd
         }
 
-        const res = await fetch('api/collection/' + userinfo._id,  { method: 'put', body: query });
+        const res = await fetch('/api/collection/' + userinfo._id,  { method: 'put', body: query });
         
         switch(res.status) {
             case 200:

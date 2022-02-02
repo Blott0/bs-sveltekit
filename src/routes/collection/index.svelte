@@ -25,10 +25,10 @@
 			}
 		}
 
-		const res = await fetch('api/collection/' + session.uid, {method: 'get'})
+		const res = await fetch('/api/collection/' + session.uid, {method: 'get'})
         const data = await res.json()
 
-		const res2 = await fetch('api/games', {method: 'get'})
+		const res2 = await fetch('/api/games', {method: 'get'})
         const data2 = await res2.json()
 
 		

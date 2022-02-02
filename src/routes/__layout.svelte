@@ -100,7 +100,7 @@
 	}
 
 	async function login(info) {
-		const res = await fetch('api/login', {method: 'post', body: JSON.stringify(info)});
+		const res = await fetch('/api/login', {method: 'post', body: JSON.stringify(info)});
         const data = await res.json();
         if (res.status === 200) {
 			if (!(data.result && data.result == 'fail') && data._id && data.username) {
