@@ -4,7 +4,6 @@
 
 		const logsresult = await fetch('/api/logs', {method: 'get'})
 		const logs = await logsresult.json()
-		console.log(logs)
 
 		for (let index = 0; index < logs.length; index++) {
 			const log = logs[index];
@@ -19,7 +18,6 @@
 				logs[index].target = await play.json()
 			}
 		}
-
 
 		return {
 			props: { logs }
