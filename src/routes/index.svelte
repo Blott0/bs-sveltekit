@@ -46,4 +46,8 @@
 
 <style>
 
+	section {
+		padding: 0;
+	}
+
 </style>
