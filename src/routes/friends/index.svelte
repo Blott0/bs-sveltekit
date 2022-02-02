@@ -24,6 +24,8 @@
 
 </script>
 
-{#each friendslist as friend}
-    <p>{friend.username} - {friend._id}</p>
-{/each}
+<section>
+    {#each friendslist as friend}
+        <p>{friend.username} - {friend._id}</p>
+    {/each}
+</section>
