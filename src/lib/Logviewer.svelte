@@ -37,16 +37,17 @@
     }
 
     .logs {
+        padding: 8px;
         display: grid;
         grid-template: "a b b" 1fr;
         /* overflow-x: hidden; */
-        width: calc(100vw - 20px);
-        transition: transform .2s
+        width: calc(100vw - 16px);
+        transition: transform .2s;
     }
 
     .log {
         position: relative;
-        width: calc(100vw - 20px);
+        width: calc(100vw - 16px);
         padding-left: 30px;
         padding-right: 30px;
         box-sizing: border-box;
@@ -57,31 +58,33 @@
     }
 
     input[data-index = "1"]:checked ~ .logs {
-        transform: translateX(calc(-100vw + 8px))
+        transform: translateX(-100vw)
     }
 
     input[data-index = "2"]:checked ~ .logs {
-        transform: translateX(calc(2*(-100vw + 8px)))
+        transform: translateX(-200vw)
     }
 
     label {
         position: absolute;
         display: flex;
         align-items: center;
+        justify-content: center;
         top: 0;
         height: 100%;
+        width: 24px;
         border: 1px solid black;
         border-radius: 5px;
         box-sizing: border-box;
     }
 
     label > span {
-        height: 18px;
-        width: 18px;
+        height: 8px;
+        width: 8px;
         box-sizing: border-box;
         display: block;
-        border-left: 12px solid black;
-        border-bottom: 12px solid black;
+        border-left: 2px solid black;
+        border-bottom: 2px solid black;
     }
 
     label:first-of-type {
@@ -98,7 +101,6 @@
 
     label:not(:first-of-type) > span {
         transform: rotate(225deg);
-        right: 0;
     }
 
 </style>
