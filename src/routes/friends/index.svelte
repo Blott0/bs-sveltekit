@@ -8,12 +8,12 @@
             }
         }
 
-        const res = await fetch('/api/friends/' + session.uid, {method: 'get'});
-        const friendslist = await res.json();
+        const res = await fetch('/api/friends/' + session.uid, {method: 'get'})
+        const friendslist = await res.json()
         
         return {
             props: { friendslist }
-        };
+        }
     }
 
 </script>
@@ -21,8 +21,6 @@
 <script>
 
     export let friendslist
-
-    console.log(friendslist)
 
 </script>
 

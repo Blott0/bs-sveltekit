@@ -58,12 +58,11 @@ export async function put (request) {
             body: { result: 'fail' }
         }
     }
-        const result = await collection.updateOne({_id: ObjectId(request.params.id)}, { $push: { friends: ObjectId(newfriend._id) } } )
-        if (result) {
-            return {
-                status: 201,
-                body: newfriend
-            }
+    const result = await collection.updateOne({_id: ObjectId(request.params.id)}, { $push: { friends: ObjectId(newfriend._id) } } )
+    if (result) {
+        return {
+            status: 201,
+            body: newfriend
         }
     }
 }
