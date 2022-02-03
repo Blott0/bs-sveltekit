@@ -28,9 +28,19 @@
 
 <script>
 
-	import Logviewer from '$lib/Logviewer.svelte'
+	import Carousel from '$lib/Carousel.svelte'
+    import { format } from 'date-fns'
 
 	export let logs
+
+	function correctdates(items) {
+		items.forEach((item, i) => {
+			items[i].date = format(new Date(item.date), 'MMMM do yyyy')
+		})
+		return items
+	}
+
+	let logscorrected = correctdates(logs)
 	
 </script>
 
@@ -39,14 +49,28 @@
 </svelte:head>
 
 <section>
+	<h2>WELCOME TO DICEY POINT</h2>
+</section>
 
-	<Logviewer {logs} />
+<section class=carousel>
+	<h2>BEHOLD RECENT ACTIVITY:</h2>
+	<Carousel items = {logscorrected} />
 	
 </section>
 
 <style>
 
-	section {
+	h2 {
+		color: rgb(25, 79, 130);
+		font-weight: 900;
+		text-align: center;
+	}
+
+	section.carousel > h2 {
+		padding: 8px;
+	}
+
+	section.carousel {
 		padding: 0;
 	}
 
