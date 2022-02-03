@@ -28,6 +28,13 @@ export async function get (request) {
 }
 
 export async function put (request) {
+
+    if (!request.locals.authenticated) {
+        return {
+            status: 403,
+            body: { result: 'fail' }
+        }
+    }
     
     const dbConnection = await clientPromise
     const db = dbConnection.db("BlottBase")
