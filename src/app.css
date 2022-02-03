@@ -131,8 +131,30 @@ section {
 
 .gameslist > ul > li {
 	background-color: #fff;
+	border-radius: 5px;
+	overflow: hidden;
 }
 
 .gameslist > ul > li > .item > .column3 > .layer1-0 * > svg {
 	height: 20px;
+}
+
+.toolbar > .butt {
+	text-align: right;
+}
+
+.toolbar > .butt > label:first-of-type {
+	float: left;
+	cursor: pointer;
+}
+
+@media(min-width: 900px) {
+	section {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	section > * {
+		max-width: 900px;
+		margin:auto !important;
+	}
 }
