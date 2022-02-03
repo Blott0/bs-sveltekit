@@ -6,7 +6,7 @@ export async function get (request) {
     const db = dbConnection.db("BlottBase")
     const collection = db.collection('users')
     
-    const result = await collection.find({}).toArray()
+    const result = await collection.find({}).project({password: 0}).toArray()
 
     return {
         // status: 200,
