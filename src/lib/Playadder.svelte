@@ -69,8 +69,22 @@
     };
 
     async function addPlay() {
-        const result = await fetch("api/stats", { method: "post", body: JSON.stringify(play)})
+        const result = await fetch("/api/stats", { method: "post", body: JSON.stringify(play)})
+    
+        switch(result.status) {
+            case 201:
+                const data = await result.json();
+                dispatch('playadded', result.status )
+                break
+            case 403:
+                dispatch('playaddfailed', { error: 'user not authenticated or login has expired'} )
+                break
+            default:
+                dispatch('gameaddfailed', { error: 'unspecified error'} )
+        }
+    
     }
+
 
 </script>
 

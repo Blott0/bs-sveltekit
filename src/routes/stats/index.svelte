@@ -15,8 +15,6 @@
 		const res2 = await fetch('/api/friends/' + session.uid, {method: 'get'})
         const data2 = await res2.json()
 
-		console.log(data2)
-
 		const res3 = await fetch('/api/collection/' + session.uid, {method: 'get'})
         const data3 = await res3.json()
 

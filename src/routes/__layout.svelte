@@ -133,15 +133,36 @@
         } 
         else {			
             this.error(res.status, data.message);
-        };
-	};
+        }
+	}
+
+	function playadded(details) {
+		popover = {
+			title: 'success',
+			message: 'play added',
+			severity: 1,
+			options: [ 'ok' ]
+		}
+		toggle = false
+	}
 
 	function friendadded(friend) {
-		console.log(friend)
+		popover = {
+			title: 'success',
+			message: 'friend added',
+			severity: 1,
+			options: [ 'ok' ]
+		}
+		toggle = false
 	}
 
 	function failedaddfriend(error) {
-		console.log(error)
+		popover = {
+			title: 'fail',
+			message: error,
+			severity: 2,
+			options: [ 'ok' ]
+		} 
 	}
 
 </script>
@@ -170,7 +191,7 @@
 	{:else if toggle === 'Friendadder'}
 		<Friendadder on:friendadded="{e => friendadded(e.detail)}" on:failedaddfriend="{e => failedaddfriend(e.detail)}" {userinfo} />
 	{:else if toggle === 'Playadder'}
-		<Playadder {ownedGames} {friendslist} {userinfo} />
+		<Playadder {ownedGames} {friendslist} {userinfo} on:playadded="{e => playadded(e.detail)}" />
 	{:else if toggle === 'Usereditor'}
 		<Usereditor {userinfo} />
 	{/if}
