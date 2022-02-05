@@ -127,6 +127,21 @@ export async function put (request) {
                         averageweight: parseFloat(gameParsed.statistics[0].ratings[0].averageweight[0])
                     }
                     const gameAdded = await gamescollection.insert(game)
+
+                    const logs = db.collection('logs')
+                    const log = {
+                        date: new Date(),
+                        user: {
+                            id: ObjectId(request.locals.uid),
+                            username: request.locals.username
+                        },
+                        event: {
+                            category: 'collection',
+                            target: parseInt(request.body)
+                        }
+                    }
+                    const logging = await logs.insertOne(log)
+                    
                     result = await collection.updateOne({_id: ObjectId(request.params.id)}, { $push: { owns: parseInt(request.body) } } )
                 
                 }
