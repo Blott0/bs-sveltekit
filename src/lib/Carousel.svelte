@@ -70,10 +70,10 @@
     
     .progress {
         position: relative;
-        width: calc(100% - 16px);
-        height: 12px;
-        background-color: white;
+        /* width: calc(100% - 16px); */
+        height: 16px;
         display: flex;
+        justify-content: center;
         border-radius: 3px;
         overflow: hidden;
         margin-left: 8px;
@@ -82,10 +82,21 @@
     }
 
     .progress > label {
-        height: 12px;
-        flex-grow: 1;
+        /* margin: 1px 2px; */
+        box-sizing: border-box;
+        display: block;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        /* flex-grow: 1; */
+        background-color: white;
+        /* border: 1px solid rgb(25, 79, 130); */
         transition: background-color .4s;
         cursor: pointer;
+    }
+
+    .progress > label + label {
+        margin-left: 4px;
     }
 
     .progress > span {
