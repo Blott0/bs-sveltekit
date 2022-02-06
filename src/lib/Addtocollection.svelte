@@ -36,6 +36,10 @@
         if (optionselected) {
             // an option was selected from searchresults..
             query = parseInt(optionselected)
+            optionselected = undefined
+        }
+        else if (!gametoadd) {
+            return
         }
         else if (gamesLookup.includes(gametoadd)) {
             // game known.. looking up id
