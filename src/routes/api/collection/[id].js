@@ -110,6 +110,16 @@ export async function put (request) {
                         });
                         return newArray
                     }
+                    
+                    function extractname(array) {
+                        let name
+                        array.forEach(el => {
+                            if (el.$.primary) {
+                                name = el._
+                            }
+                        })
+                        return name
+                    }
 
                     const game = {
                         _id: parseInt(gameParsed.$.objectid),
@@ -117,7 +127,7 @@ export async function put (request) {
                         minplayers: parseInt(gameParsed.minplayers[0]),
                         maxplayers: parseInt(gameParsed.maxplayers[0]),
                         playingtime: parseInt(gameParsed.playingtime[0]),
-                        name: gameParsed.name[0]._,
+                        name: extractname(gameParsed.name),
                         description: gameParsed.description[0],
                         image: gameParsed.image[0],
                         boardgamepublisher: gameParsed.boardgamepublisher[0]._,
@@ -126,6 +136,7 @@ export async function put (request) {
                         boardgamemechanic: makeArray(gameParsed.boardgamemechanic),
                         averageweight: parseFloat(gameParsed.statistics[0].ratings[0].averageweight[0])
                     }
+                    
                     const gameAdded = await gamescollection.insert(game)
 
                     const logs = db.collection('logs')

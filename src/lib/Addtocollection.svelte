@@ -17,7 +17,7 @@
         let table = []
         itemsArray.forEach(item => {
             table.push(item.name)
-        });
+        })
         return table
     }
 
@@ -27,7 +27,7 @@
         let list = []
         ownedGames.forEach(game => {
             list.push(game._id)
-        });
+        })
         return list
     }
 
