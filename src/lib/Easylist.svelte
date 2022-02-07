@@ -140,8 +140,13 @@ function drawArray(item, array, iteration) {
         else if (searchEnabled && Object.keys(matches).includes('' + item._id) && Object.keys(matches['' + item._id]).includes(data.key)) {
             html = html + stringReplace(item[data.key], matches['' + item._id][data.key]);
         }
+        else if (Array.isArray(item[data.key])) {
+            item[data.key].forEach(el => {
+                html = html + el + '<br>'
+            })
+        }
         else {
-            html = html + item[data.key];
+            html = html + item[data.key]
         }
         html = html + '</div>';
     });

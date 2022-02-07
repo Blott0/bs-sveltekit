@@ -135,6 +135,33 @@ section {
 	overflow: hidden;
 }
 
+.gameslist > ul > li > .item > .column1 > .layer1-0 {
+	font-size: 1.2rem;
+	padding: 2px 4px;
+}
+
+.gameslist > ul > li > .item > .column1 > .layer1-1 {
+	font-size: .8rem;
+	padding: 2px 4px;
+}
+
+.gameslist > ul > li > .expand {
+	padding: 8px;
+}
+
+.gameslist > ul > li > .expand > * + * {
+	margin-top: 12px;
+}
+
+.gameslist > ul > li > .expand > .layer1-0 {
+	display: flex;
+}
+
+.gameslist > ul > li > .expand > .layer1-0::before {
+	margin-right: 4px;
+	content: 'Mechanisms:';
+}
+
 .gameslist > ul > li > .item > .column3 > .layer1-0 * > svg {
 	height: 20px;
 }
