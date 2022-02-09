@@ -83,7 +83,7 @@
 				data: {
 					key: 'image',
 					function: img => {
-						return '<div style="background: url(' + img + ') no-repeat top center;background-size:cover;height: 100%"></div>';
+						return '<div style="background: url(' + img.base64 + ') no-repeat top center;background-size:cover;height: 100%"></div>';
 					}
 				}
 			},

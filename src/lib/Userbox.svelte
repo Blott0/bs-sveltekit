@@ -1,15 +1,16 @@
 <script>
     
-    export let userstore;
-    export let type;
-    export let color;
+    export let userstore
+    export let type
+    export let color
 
 </script>
 
 <div style="border-color:{color ? color : 'blue'}" data-type="{type}" title="{userstore.username}{userstore.email ? ' - ' + userstore.email : ''}" class="wrapper">
 
     <div class="image">
-        {#if userstore.image}
+        {#if userstore.avatar}
+            <img src="{userstore.avatar.base64}" alt="{userstore.avatar.name}">
         {:else}
             <svg viewBox="0 -8 63 67"><path fill="black" fill-rule="evenodd" d="M31.5-7.3A25.2 25.2 0 0 0 6.3 17.9a25.2 25.2 0 0 0 5.6 15.8A31.5 31.5 0 0 0 0 58.2a31.5 31.5 0 0 0 0 1h63a31.5 31.5 0 0 0 0-1 31.5 31.5 0 0 0-12-24.6A25.2 25.2 0 0 0 56.7 18 25.2 25.2 0 0 0 31.5-7.3z"></path></svg>
         {/if}
@@ -47,6 +48,12 @@
 .image {
     width: 100%;
     background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.image > * {
+    height: 60px;
 }
 
 .name {
@@ -64,7 +71,7 @@
 
 .wrapper[data-type = "1"] > .name > p {
     margin: 0;
-    transform: translateY(-4px);
+    /* transform: translateY(-4px); */
     font-size: 11px;
     font-weight: 600;
 }

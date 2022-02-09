@@ -1,17 +1,59 @@
 import clientPromise from '$lib/mongodb-client'
-import { GridFSBucket, ObjectId } from 'mongodb';
+import { ObjectId } from 'mongodb'
 
-export async function get(request) {
+export async function get (request) {
+
+    // console.log(request.params)
+
+    const matchObjectId = request.params.id.match(/^[a-f\d]{24}$/i)
+    // console.log(matchObjectId)
+
+    const dbConnection = await clientPromise
+    const db = dbConnection.db("BlottBase")
+    const imagescoll = db.collection('images')
+    let query = {}
+    
+
+    if (matchObjectId) {
+
+    }
+    else {
+        query = {
+            name: request.params.id
+        }
+    }
+
+    const image = await imagescoll.findOne(query)
+    // console.log(image)
+
+    return {
+        body: image
+    }
+}
+
+export async function post (request) {
+
+    console.log(request.body)
     console.log(request.params)
+    
+    // const base64 = btoa(request.body)
 
     const dbConnection = await clientPromise
     const db = dbConnection.db("BlottBase")
 
-    const bucket = new GridFSBucket(db, {bucketName: 'imagesbucket'});
+    const imagesdb = db.collection('images')
 
-    const downloadstream = bucket.openDownloadStream(new ObjectId('61f2c587ca02f87a999060f0'))
+    const insertimg = await imagesdb.insertOne({
+        name: request.params.id,
+        base64: request.body
+        // bin: request.body
+    })
+
+    console.log(insertimg)
 
     return {
-        body: request.params
+        // status: 200,
+        body: {response: 'ok'}
     }
+
 }

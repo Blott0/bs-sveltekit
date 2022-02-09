@@ -29,6 +29,7 @@
 <script>
 
 	import Carousel from '$lib/Carousel.svelte'
+	import Avatar from '$lib/Avatar.svelte'
     import { format } from 'date-fns'
 
 	export let logs
@@ -55,7 +56,10 @@
 <section class=carousel>
 	<h2>BEHOLD RECENT ACTIVITY:</h2>
 	<Carousel items = {logscorrected} />
-	
+</section>
+
+<section>
+	<Avatar imageid="1235322" />
 </section>
 
 <style>

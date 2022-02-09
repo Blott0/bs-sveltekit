@@ -17,7 +17,7 @@ export async function get (request) {
     if (gamesids.owns) {
         gamesids.owns.forEach(gameid => {
             query._id.$in.push(parseInt(gameid))
-        });
+        })
     }
     
     const result = await collection2.find(query).toArray()
@@ -121,6 +121,18 @@ export async function put (request) {
                         return name
                     }
 
+                    const response = await fetch(gameParsed.image[0])
+                    var binary = ''
+                    const buffer = await response.arrayBuffer()
+                    const bytes = new Uint8Array(buffer)
+                    const len = bytes.byteLength
+                    for (var i = 0; i < len; i++) {
+                        binary += String.fromCharCode( bytes[ i ] )
+                    }
+
+                    const filename = response.url.match(/[\w-]+\.[A-Za-z]{3}$/)[0]
+                    const base64 = 'data:image/' + (filename.slice(- 4) === '.jpg' ? 'jpg' : '') + ';base64,' + btoa(binary)
+
                     const game = {
                         _id: parseInt(gameParsed.$.objectid),
                         yearpublished: parseInt(gameParsed.yearpublished[0]),
@@ -129,7 +141,10 @@ export async function put (request) {
                         playingtime: parseInt(gameParsed.playingtime[0]),
                         name: extractname(gameParsed.name),
                         description: gameParsed.description[0],
-                        image: gameParsed.image[0],
+                        image: {
+                            name: filename,
+                            base64: base64
+                        },
                         boardgamepublisher: gameParsed.boardgamepublisher[0]._,
                         boardgamedesigner: makeArray(gameParsed.boardgamedesigner),
                         boardgamecategory: makeArray(gameParsed.boardgamecategory),

@@ -21,7 +21,7 @@ export const handle = async ({ request, resolve }) => {
 			request.locals.uid = result._uid.toString()
 			request.locals.username = result.username
 			request.locals.email = result.email
-			request.locals.avatar = result.avatar?.toString() || undefined
+			request.locals.avatar = result.avatar || undefined
 		}
 		else {
 			request.locals.authenticated = false

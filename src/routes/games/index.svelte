@@ -8,33 +8,33 @@
 	};
 
 	function unesc(str) {
-		let string = str;
+		let string = str
 		Object.keys(escapes).forEach(esc => {
-			const reg = new RegExp(esc, 'g');
-			string = string.replace(reg, escapes[esc]);
+			const reg = new RegExp(esc, 'g')
+			string = string.replace(reg, escapes[esc])
 		});
-		return string;
+		return string
 	}
     
 	export async function load({ page, fetch, session, stuff }) {
 
-		const res = await fetch('/api/games', {method: 'get'});
+		const res = await fetch('/api/games', {method: 'get'})
 
-        const data = await res.json();
+        const data = await res.json()
 
         if (res.status === 200) {
             let itemsArray = data.map(da => {
-				const u = unesc(da.description);
-				da.description = u;
-				return da;
+				const u = unesc(da.description)
+				da.description = u
+				return da
             });
             return {
 				props: { itemsArray }
-			};
+			}
         } 
         else {			
-            this.error(res.status, data.message);
-        };
+            this.error(res.status, data.message)
+        }
 
 	}
     

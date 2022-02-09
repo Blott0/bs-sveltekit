@@ -57,7 +57,7 @@ export async function post (request) {
             return {
                 status: 200,
                 headers,
-                body: result
+                body: JSON.stringify(result)
             }
         }
     }

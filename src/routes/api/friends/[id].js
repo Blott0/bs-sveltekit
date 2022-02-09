@@ -15,7 +15,7 @@ export async function get (request) {
         
         friendids.friends.forEach(friend => {
             query._id.$in.push(ObjectId(friend))
-        });
+        })
     }
     
     const result = await collection.find(query).project({ password: 0 }).toArray()

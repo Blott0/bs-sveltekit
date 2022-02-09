@@ -55,7 +55,7 @@
 
 <section>
 
-    <img src="{game.image}">
+    <img src="{game.image.base64}" alt="{game.name} box art">
 
     <h2>{game.name}</h2>
 

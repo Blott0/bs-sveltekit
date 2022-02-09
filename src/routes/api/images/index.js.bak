@@ -19,20 +19,22 @@ export async function post (request) {
     const dbConnection = await clientPromise
     const db = dbConnection.db("BlottBase")
 
-    const bucket = new GridFSBucket(db, {bucketName: 'imagesbucket'});
+    const imagesdb = db.collection('images')
 
-    const uploadstream = bucket.openUploadStream('myFile', {
-         chunkSizeBytes: 1048576,
-         metadata: { field: 'myField', value: 'myValue' }
-     })
+    // const bucket = new GridFSBucket(db, {bucketName: 'imagesbucket'});
 
-    const writetn = uploadstream.write(base64, () => {
-        uploadstream.end(base64, () => {
-            console.log('!!')
-        })
-    })
+    // const uploadstream = bucket.openUploadStream('myFile', {
+    //      chunkSizeBytes: 1048576,
+    //      metadata: { field: 'myField', value: 'myValue' }
+    //  })
 
-    console.log(writetn)
+    // const writetn = uploadstream.write(base64, () => {
+    //     uploadstream.end(base64, () => {
+    //         console.log('!!')
+    //     })
+    // })
+
+    // console.log(writetn)
     // const picstream = fs.ReadStream(btoa(request.body))
 
     // const upload = picstream.pipe(uploadstream)
