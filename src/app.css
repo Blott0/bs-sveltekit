@@ -109,6 +109,16 @@ button:focus:not(:focus-visible) {
 	}
 } */
 
+section.carousel {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+carousel, .progress {
+	max-width: 600px;
+}
+
 section {
 	padding: 8px;
 }

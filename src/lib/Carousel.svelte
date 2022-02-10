@@ -1,7 +1,28 @@
 <script>
 
+    import Userbox from "$lib/Userbox.svelte"
     export let items = []
     let selected = 0
+
+    let touch = false
+    let dragging = false
+    
+    function dragstart(event) {
+        touch = event.touches[0].clientX
+    }
+
+    function drag(event) {
+        dragging = event.touches[0].clientX
+    }
+
+    function dragend(event) {
+        if ((touch - dragging) > 70) {
+            selected = selected + 2 > items.length ? 0 : selected + 1
+        }
+        else if ((touch - dragging) < -70) {
+            selected = selected - 1 < 0 ? items.length - 1 : selected - 1
+        }
+    }
 
 </script>
 
@@ -11,21 +32,34 @@
 
 <carousel>
     {#each items as item, i}
-        <div class="item" class:selected="{selected === i}">
+        <div on:touchmove="{e => drag(e)}" on:touchend="{e => dragend(e)}" on:touchstart="{e => dragstart(e)}" class="item" class:selected="{selected === i}">
             <!-- this needs improvement -->
             <span class="date">
                {item.date} 
             </span>
-            <span class="user">
-                {item.user.username}
-            </span>
-            <span class="action">
-                {#if item.event.category === 'collection'}
-                    game added:<br><a href="games/{item.target._id}">{item.target.name}</a>
-                {:else if item.event.category === 'plays'}
-                    result logged:<br><a href="stats/{item.target._id}">{item.target._id}</a>
-                {/if}
-            </span>
+            <div class="grid">
+                <span class="user">
+                    <a href="/users/{item.user._id}">
+                        <Userbox userstore={item.user} type={1} />
+                    </a>
+                </span>
+                <span class="action">
+                    <a href="/users/{item.user._id}">
+                        <h3>{item.user.username}</h3>
+                    </a>
+                    {#if item.event.category === 'collection'}
+                        has added <a href="games/{item.target._id}">{item.target.name}</a> to his or her collection<br>
+                    {:else if item.event.category === 'plays'}
+                        has <a href="stats/{item.target._id}">logged results</a> of a game of {item.target.game.name}<br>
+                    {/if}
+                </span>
+                <span class="game">
+                    <a href="{item.target.image ? '/games/' + item.target._id : '/games/' + item.target.game._id}">
+                        <img src="{item.target.image?.base64 || item.target.game?.image.base64}" alt="">
+                    </a>
+                </span>
+            </div>
+            
             <!-- ^^^^^^^^^^^^^^^^^^^^^^^^ -->
         </div>
     {/each}
@@ -70,7 +104,6 @@
     
     .progress {
         position: relative;
-        /* width: calc(100% - 16px); */
         height: 16px;
         display: flex;
         justify-content: center;
@@ -82,15 +115,12 @@
     }
 
     .progress > label {
-        /* margin: 1px 2px; */
         box-sizing: border-box;
         display: block;
         height: 16px;
         width: 16px;
         border-radius: 50%;
-        /* flex-grow: 1; */
         background-color: white;
-        /* border: 1px solid rgb(25, 79, 130); */
         transition: background-color .4s;
         cursor: pointer;
     }
@@ -116,13 +146,40 @@
     .item > span.date {
         background-color:rgb(25, 79, 130);
         color: white;
-        /* padding:  */
     }
 
     .item > span.user {
         font-size: 1.3rem;
         font-weight: bold;
         color: rgb(25, 79, 130);
+    }
+
+    .action > a {
+        text-decoration: none;
+    }
+
+    .action > a > h3 {
+        margin: 0;
+    }
+
+    .item > .grid {
+        display: grid;
+        grid-template-columns: 1fr 4fr 2fr;
+        grid-column-gap: 8px;
+        margin: 8px 36px;
+    }
+
+    
+    .item > .grid > span.game > a {
+        height: 100%;
+        display: block;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .item > .grid > span.game > a > img {
+        max-width: 100%;
+        max-height: 60px;
     }
 
     input[value = "1"]:checked ~ carousel > .item {
