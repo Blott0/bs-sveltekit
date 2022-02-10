@@ -119,9 +119,15 @@
         {/if}
 
         {#if selectedplayers.length > 0}
+        <hr>
+        <div class="playerwrapper">
+
             {#each selectedplayers as player, i}
-                <span transition:slide>
+                {#if i > 0}
                     <hr>
+                {/if}
+                <span transition:slide>
+                    
                     <p>{playerlookup[player]}</p>
                     <span>
                         <label for="score{i}">score:</label>
@@ -133,7 +139,11 @@
                     </span>
                 </span>
             {/each}
-            <hr>
+            
+
+        </div>
+        <hr>
+            
         {/if}
         <span class="button">
             <input type="submit">
@@ -205,6 +215,28 @@
 
     fieldset > span.button > input:hover {
         background-color: rgb(140, 140, 220);
+    }
+
+    .playerwrapper > span > p {
+        margin: 0;
+    }
+
+    .playerwrapper > span > span {
+        display: flex;
+    }
+
+    .playerwrapper > span > span:first-of-type > label {
+        padding: 8px 0;
+    }
+
+    .playerwrapper > span > span > label + input {
+        margin-left: 6px;
+    }
+
+    .playerwrapper {
+        max-height: 45vh;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
 </style>
