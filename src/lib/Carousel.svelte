@@ -6,7 +6,9 @@
 
     let touch = false
     let dragging = false
-    
+    $:draggingleft = dragging && (touch - dragging > 50) ? true : false
+    $:draggingright = dragging && (touch - dragging < -50) ? true : false
+
     function dragstart(event) {
         touch = event.touches[0].clientX
     }
@@ -16,12 +18,15 @@
     }
 
     function dragend(event) {
+        event.stopPropagation()
         if ((touch - dragging) > 70) {
             selected = selected + 2 > items.length ? 0 : selected + 1
         }
         else if ((touch - dragging) < -70) {
             selected = selected - 1 < 0 ? items.length - 1 : selected - 1
         }
+        dragging = false
+        touch = false
     }
 
 </script>
@@ -32,7 +37,7 @@
 
 <carousel>
     {#each items as item, i}
-        <div on:touchmove="{e => drag(e)}" on:touchend="{e => dragend(e)}" on:touchstart="{e => dragstart(e)}" class="item" class:selected="{selected === i}">
+        <div on:touchmove="{e => drag(e)}" on:touchend="{e => dragend(e)}" on:touchstart="{e => dragstart(e)}" class="item" class:draggingleft class:draggingright class:selected="{selected === i}">
             <!-- this needs improvement -->
             <span class="date">
                {item.date} 
@@ -59,7 +64,6 @@
                     </a>
                 </span>
             </div>
-            
             <!-- ^^^^^^^^^^^^^^^^^^^^^^^^ -->
         </div>
     {/each}
@@ -172,9 +176,10 @@
     
     .item > .grid > span.game > a {
         height: 100%;
-        display: block;
+        display: flex;
         overflow: hidden;
-        text-align: center;
+        justify-content: center;
+        align-items: center;
     }
 
     .item > .grid > span.game > a > img {
@@ -212,6 +217,78 @@
 
     input[value = "8"]:checked ~ carousel > .item {
         transform: translateX(-800%)
+    }
+
+    .item.draggingleft {
+        transform: translateX(-20%)
+    }
+
+    input[value = "1"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-120%)
+    }
+
+    input[value = "2"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-220%)
+    }
+
+    input[value = "3"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-320%)
+    }
+
+    input[value = "4"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-420%)
+    }
+
+    input[value = "5"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-520%)
+    }
+
+    input[value = "6"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-620%)
+    }
+
+    input[value = "7"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-720%)
+    }
+
+    input[value = "8"]:checked ~ carousel > .item.draggingleft {
+        transform: translateX(-820%)
+    }
+
+    .item.draggingright {
+        transform: translateX(20%)
+    }
+
+    input[value = "1"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-80%)
+    }
+
+    input[value = "2"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-180%)
+    }
+
+    input[value = "3"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-280%)
+    }
+
+    input[value = "4"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-380%)
+    }
+
+    input[value = "5"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-480%)
+    }
+
+    input[value = "6"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-580%)
+    }
+
+    input[value = "7"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-680%)
+    }
+
+    input[value = "8"]:checked ~ carousel > .item.draggingright {
+        transform: translateX(-780%)
     }
 
     input[value = "0"]:checked ~ .progress > label:first-of-type {
