@@ -42,7 +42,7 @@
     width: 90px;
     border-width: 2px;
     border-style: solid;
-    border-radius: 3px;
+    border-radius: 8px;
 }
 
 .image {
@@ -52,8 +52,12 @@
     justify-content: center;
 }
 
-.image > * {
+.wrapper[data-type = "1"] > .image > * {
     height: 60px;
+}
+
+.wrapper[data-type = "2"] > .image > * {
+    height: 94px;
 }
 
 .name {
@@ -71,7 +75,6 @@
 
 .wrapper[data-type = "1"] > .name > p {
     margin: 0;
-    /* transform: translateY(-4px); */
     font-size: 11px;
     font-weight: 600;
 }
@@ -79,8 +82,6 @@
 .wrapper[data-type = "2"] > .name > p {
     margin: 0;
     padding: 6px;
-    transform: translateY(-4px);
-    font-size: small;
     font-weight: 600;
 }
 
