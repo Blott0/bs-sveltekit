@@ -19,10 +19,10 @@
 
     function dragend(event) {
         event.stopPropagation()
-        if ((touch - dragging) > 70) {
+        if (dragging && ((touch - dragging) > 70)) {
             selected = selected + 2 > items.length ? 0 : selected + 1
         }
-        else if ((touch - dragging) < -70) {
+        else if (dragging && ((touch - dragging) < -70)) {
             selected = selected - 1 < 0 ? items.length - 1 : selected - 1
         }
         dragging = false
