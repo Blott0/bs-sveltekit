@@ -8,7 +8,7 @@ export async function get (request) {
     const collection = db.collection('users')
     
     const result = await collection.findOne({_id: ObjectId(request.params.id)})
-
+    delete result.password
     return {
         // status: 200,
         body: result
