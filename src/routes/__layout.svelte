@@ -28,6 +28,7 @@
 	import Playadder from '$lib/Playadder.svelte'
 	import Addtocollection from '$lib/Addtocollection.svelte'
 	import Friendadder from '$lib/Friendadder.svelte'
+	import { onDestroy} from 'svelte'
 	import { fade } from 'svelte/transition'
 	import '../app.css'
 
@@ -50,24 +51,43 @@
 	}
 
 	let itemsArray
-	gameslist.subscribe(value => {
+	const unsubgames = gameslist.subscribe(value => {
 		itemsArray = value.itemsArray
 	})
 
 	let ownedGames
-	ownedgames.subscribe(value => {
+	const unsubowned = ownedgames.subscribe(value => {
 		ownedGames = value.itemsArray
 	})
 
 	let friendslist
-	friends.subscribe(value => {
+	const unsubfriends = friends.subscribe(value => {
 		friendslist = value.itemsArray
 	})
 
 	let userstore
-	user.subscribe(value => {
+	const unsubuser = user.subscribe(value => {
 		userstore = value
 	})
+
+	function setavatar(e) {
+		const usr = {
+			_id: userstore._id,
+			username: userstore.username,
+			email: userstore.email,
+			avatar: e
+		}
+		user.set(usr)
+	}
+
+	// const unsuball = function name(params) {
+		
+	// }
+
+
+	// onDestroy(
+	// 	unsuball
+	// )
 
 	let games = ownedGames
 
@@ -89,14 +109,14 @@
 	}
 
 	function gameAdded(result) {
-		ownedGames.push({ _id: result })
+		ownedGames.push(result)
 		optionstoggle.Addtocollection = !optionstoggle.Addtocollection
 		popover = {
 			title: 'message',
 			message: 'Game addded to collection',
 			severity: 1,
 			options: [ 'ok' ]
-		};
+		}
 	}
 
 	async function login(info) {
@@ -165,6 +185,8 @@
 		} 
 	}
 
+	// let colorschanged
+
 </script>
 
 <svelte:head>
@@ -173,7 +195,8 @@
 
 <Header {color} {userstore} on:login='{ e => toggle = "login" }' on:toggle="{ e => toggleOption(e.detail.component) }" />
 
-<main>
+<main> 	<!-- class:colors="{colorschanged}" -->
+	<!-- <input type="checkbox" bind:checked="{colorschanged}"> -->
 	<slot />
 </main>
 
@@ -187,13 +210,13 @@
 		<Dialog on:loginAttempt="{ e => login(e.detail) }" />
 		<!-- <Logindialog {fail} on:loginAttempt="{ e => login(e.detail) }" /> -->
 	{:else if toggle === 'Addtocollection'}
-		<Addtocollection on:gameaddfailed="{ e => gameaddfailed(e.detail) }" on:gameadded="{ e => gameAdded(e.detail) }" {userinfo} {itemsArray} {ownedGames} />
+		<Addtocollection on:gameaddfailed="{ e => gameaddfailed(e.detail) }" on:gameadded="{ e => gameAdded(e.detail) }" userinfo={userstore} {itemsArray} {ownedGames} />
 	{:else if toggle === 'Friendadder'}
-		<Friendadder on:friendadded="{e => friendadded(e.detail)}" on:failedaddfriend="{e => failedaddfriend(e.detail)}" {userinfo} />
+		<Friendadder on:friendadded="{e => friendadded(e.detail)}" on:failedaddfriend="{e => failedaddfriend(e.detail)}" userinfo={userstore} />
 	{:else if toggle === 'Playadder'}
-		<Playadder {ownedGames} {friendslist} {userinfo} on:playadded="{e => playadded(e.detail)}" />
+		<Playadder {ownedGames} {friendslist} userinfo={userstore} on:playadded="{e => playadded(e.detail)}" />
 	{:else if toggle === 'Usereditor'}
-		<Usereditor {userinfo} />
+		<Usereditor userinfo={userstore} on:avatarset="{e => setavatar(e.detail)}" />
 	{/if}
 {/if}
 
@@ -202,12 +225,20 @@
 <style>
 	
 	main {
-		/* padding: 8px; */
     	margin-bottom: 24px;
 		background-color: #ededed;
         min-height: calc(100vh - 90px);
 		box-shadow: 0 4px 14px rgba(0,0,0,.4);
 	}
+
+	/* main.colors {
+		background-color: rgb(255, 251, 255);
+		color: rgb(46, 64, 87);
+	}
+
+	main.colors + footer {
+		background-color: rgb(214, 244, 157);
+	} */
 
 	.screen {
 		z-index: 1;

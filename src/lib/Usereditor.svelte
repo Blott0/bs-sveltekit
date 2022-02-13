@@ -1,9 +1,11 @@
 <script>
 
     import { fly, slide } from 'svelte/transition'
+    import { createEventDispatcher } from 'svelte'
 
     export let userinfo
 
+    const dispatch = createEventDispatcher()
     let newavatar
     let canvas
     let newpass1
@@ -27,29 +29,35 @@
     let base64
 
     async function setavatar(file) {
-        // console.log(file[0])
         
-
         const ctx = canvas.getContext('2d')
         let img = new Image()
-        
-        // img.src = 'Zim.jpg'
         img.src = URL.createObjectURL(file[0], 1)
         img.onload = async function() {
             canvas.width = img.width
             canvas.height = img.height
-            // console.log(file[0])
             ctx.drawImage(img, 0, 0)
             base64 = canvas.toDataURL(file[0].type)
             const response = await fetch('/api/users/' + userinfo._id + '/avatar/' + file[0].name, {method: "post", body: base64})
             const result = await response.json()
-            // console.log(result)
+            dispatch(
+                'avatarset', {
+                    base64: base64,
+                    name: file[0].name
+                }
+            )
         }
-
+        newavatar = false
+        // const ui = {
+        //     username: userinfo.username,
+        //     _id: userinfo._id,
+        //     email: userinfo.email,
+        //     avatar: {
+        //         base64: base64,
+        //         name: file[0].name
+        //     }
+        // }
         
-        
-        // const a = new FormData(form)
-        // console.log(a)
     }
     
 </script>
@@ -68,7 +76,7 @@
             <input accept="image/*" bind:files="{newavatar}" id="avatar" type="file">
             {#if newavatar}
                 <button transition:slide on:click|preventDefault="{e => setavatar(newavatar)}">set avatar</button>
-                <canvas bind:this="{canvas}"></canvas>
+                <canvas hidden bind:this="{canvas}"></canvas>
                 <!-- {#if base64}
                     <img src="{base64}">
                 {/if} -->
