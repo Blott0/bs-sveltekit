@@ -62,9 +62,16 @@
     export let gamesList
 	
 	import { gameslist, ownedgames } from '../stores.js'
+	// import { onDestroy } from 'svelte'
 
 	gameslist.set({itemsArray: gamesList})
 	ownedgames.set({itemsArray: itemsArray})
+
+	// const unsubscribe = ownedgames.subscribe(value => {
+	// 	itemsArray = value
+	// })
+
+	// onDestroy(unsubscribe)
 	
 	import Easylist from '$lib/Easylist.svelte'
 
@@ -81,9 +88,9 @@
 				title: 'image',
 				noSort: true,
 				data: {
-					key: 'image',
-					function: img => {
-						return '<div style="background: url(' + img.base64 + ') no-repeat top center;background-size:cover;height: 100%"></div>';
+					key: ['image', '_id'],
+					function: (img, id) => {
+						return '<a href="/games/' + id + '"><div style="background: url(' + img.base64 + ') no-repeat top center;background-size:cover;height: 100%"></div></a>';
 					}
 				}
 			},
