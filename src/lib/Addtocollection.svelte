@@ -4,6 +4,8 @@
     export let itemsArray
     export let ownedGames
 
+    console.log(ownedGames)
+
     import { createEventDispatcher } from 'svelte'
     import { fly, slide } from 'svelte/transition'
 
@@ -29,6 +31,12 @@
             list.push(game._id)
         })
         return list
+    }
+
+    function cancelchoice() {
+        options = undefined
+        gametoadd = undefined
+        optionselected = undefined
     }
 
     async function addgame() {
@@ -58,14 +66,13 @@
         
         switch(res.status) {
             case 200:
-                const data = await res.json();
-                // console.log(data)
-                dispatch('gameadded', query )
+                const data = await res.json()
+                dispatch('gameadded', data.game )
                 gametoadd = undefined
                 break
             case 201:
-                const data2 = await res.json();
-                // console.log(data2)
+                const data2 = await res.json()
+                console.log(data2)
                 dispatch('gameadded', query )
                 gametoadd = undefined
                 options = undefined
@@ -75,7 +82,7 @@
                 dispatch('gameaddfailed', { error: 'game already in collection'} )
                 break
             case 219:
-                const data3 = await res.json();
+                const data3 = await res.json()
                 options = data3.boardgames.boardgame
                 break
             case 403:
@@ -109,10 +116,12 @@
             {:else}
                 <label hidden for="gameoptions">select a game to add from search result:</label>
                 <select id="gameoptions" transition:slide bind:value={optionselected}>
+                    <option disabled>bgg results (pick one)</option>
                     {#each options as option}
                         <option value="{option.$.objectid}">{option.name[0]._} - {option.yearpublished[0]}</option>
                     {/each}
                 </select>
+                <button on:click|preventDefault="{e => cancelchoice()}">Cancel</button>
             {/if}
             <input type="submit">
         </fieldset>
@@ -144,7 +153,7 @@
         padding: 6px 10px;
     }
 
-    input, select {
+    input, select, button {
         border: none;
         box-sizing: border-box;
         padding: 6px 10px;
@@ -158,13 +167,16 @@
         width: 100%;
     }
 
-    input:last-of-type {
+    input:last-of-type, button {
         background-color: rgb(88, 88, 145);
         color: white;
-        float: right;
         cursor: pointer;
         font-weight: bold;
         transition: .2s ease-in-out;
+    }
+
+    input:last-of-type {
+        float: right;
     }
 
     input:last-of-type:hover {
