@@ -1,5 +1,35 @@
 <script context="module">
 
+	
+    
+	export async function load({ page, fetch, session, stuff }) {
+
+		if (!session.authenticated) {
+			return {
+				status: '302',
+				redirect: '/unauthenticated'
+			}
+		}
+		const uid = session.uid
+		return {
+			props: { uid }
+		}
+	}
+    
+</script>
+
+<script>
+
+    // export let itemsArray
+    // export let gamesList
+	let itemsArray
+    let gamesList
+	export let uid
+	
+	import Spinner from '$lib/Spinner.svelte'
+	import { gameslist, ownedgames } from '../stores.js'
+	import { onMount } from 'svelte'
+
 	const escapes = {
 		'&gt;': '>',
 		'&lt;': '<',
@@ -15,17 +45,10 @@
 		})
 		return string
 	}
-    
-	export async function load({ page, fetch, session, stuff }) {
+	
 
-		if (!session.authenticated) {
-			return {
-				status: '302',
-				redirect: '/unauthenticated'
-			}
-		}
-
-		const res = await fetch('/api/collection/' + session.uid, {method: 'get'})
+	onMount(async () => {
+		const res = await fetch('/api/collection/' + uid, {method: 'get'})
         const data = await res.json()
 
 		const res2 = await fetch('/api/games', {method: 'get'})
@@ -34,38 +57,28 @@
 		
 
         if ((res.status === 200) && (res2.status === 200)) {
-            let itemsArray = data.map(da => {
+            itemsArray = data.map(da => {
 				const u = unesc(da.description)
 				da.description = u
 				return da
             })
-			let gamesList = data2.map(da => {
+			gamesList = data2.map(da => {
 				const u = unesc(da.description)
 				da.description = u
 				return da
             })
-            return {
-				props: { itemsArray, gamesList }
-			}
+			gameslist.set({itemsArray: gamesList})
+			ownedgames.set({itemsArray: itemsArray})
+			itemsArray = itemsArray
+			gamesList = gamesList
+            // return {
+			// 	props: { itemsArray, gamesList }
+			// }
         } 
         else {			
             this.error(res.status, data.message)
-        }
-
-	}
-    
-</script>
-
-<script>
-
-    export let itemsArray
-    export let gamesList
-	
-	import { gameslist, ownedgames } from '../stores.js'
-	// import { onDestroy } from 'svelte'
-
-	gameslist.set({itemsArray: gamesList})
-	ownedgames.set({itemsArray: itemsArray})
+        }}
+	)
 
 	// const unsubscribe = ownedgames.subscribe(value => {
 	// 	itemsArray = value
@@ -175,7 +188,11 @@
 </svelte:head>
 
 <section>
+	{#if itemsArray}
 	<Easylist {itemsArray} {listSettings} />
+	{:else}
+		<Spinner />
+	{/if}
 </section>
 
 <style>
