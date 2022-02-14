@@ -18,7 +18,6 @@
 
     .spinner > span {
         display: block;
-        border-width: 2px 0 0 0;
         border-style: solid;
         position: absolute;
         border-radius: 50%;
@@ -30,6 +29,7 @@
 
     .spinner > span:not(.txt) {
         animation-name: rotate;
+        animation-timing-function: linear;
     }
 
     @keyframes rotate {
@@ -52,6 +52,7 @@
 
     span.s1 {
         border-color: rgb(117, 150, 194);
+        border-width: 0 4px 0 0;
         width: 120px;
         height: 120px;
         animation-duration: 2s;
@@ -59,6 +60,7 @@
 
     span.s2 {
         border-color: yellowgreen;
+        border-width: 0 0 0 4px;
         width: 116px;
         height: 116px;
         animation-duration: 3s;
@@ -66,9 +68,11 @@
 
     span.s3 {
         border-color: rgb(196, 149, 10);
+        border-width: 4px 0 0 0;
         width: 112px;
         height: 112px;
         animation-duration: 4s;
+        animation-direction: reverse;
     }
 
 </style>
