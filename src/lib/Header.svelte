@@ -6,7 +6,7 @@
 	import { page } from '$app/stores'
 	import { createEventDispatcher } from 'svelte'
 	import { fly, fade, slide } from 'svelte/transition'
-	import Userbox from '../Userbox.svelte'
+	import Userbox from './Userbox.svelte'
 
 	// console.log(userinfo)
 
@@ -17,8 +17,10 @@
 	$:title = $page.path == '/' ? 'Dicey point' :
 		$page.path == '/collection' ? 'Collection' :
 		$page.path == '/games' ? 'Games' :
-		$page.path == '/stats' ? 'Stats' :
 		$page.path == '/friends' ? 'Friends' :
+		$page.path.match(/\/games\/[0-9]{3,}/) ? 'Game details' :
+		$page.path.match(/\/users\//) ? 'User details' :
+		$page.path == '/stats' ? 'Stats' :
 		$page.path == '/about' ? 'About' :
 		$page.path == '/unauthenticated' ? 'login required' : '?'
 
@@ -105,6 +107,24 @@
 
 	<div class="titlebar" on:click="{e => toggleOptions = !toggleOptions}">
 		<h1>{title}</h1>
+		<!-- <div class="options">
+			{#if pathOptions[title]}
+				{#each pathOptions[title] as o}
+					<div title="{o.title}" on:click="{ toggleOption(o) }">
+						{@html o.svg}
+					</div>
+				{/each}
+			{/if}
+		</div> -->
+	</div>
+
+	<div class="corner">
+		<div style="cursor:pointer" on:loginAttempt on:click="{ e => openuser() }">
+			<Userbox {userstore} {type} {color} />
+		</div>
+	</div>
+
+	<div class="bottom">
 		<div class="options">
 			{#if pathOptions[title]}
 				{#each pathOptions[title] as o}
@@ -116,11 +136,6 @@
 		</div>
 	</div>
 
-	<div class="corner">
-		<div style="cursor:pointer" on:loginAttempt on:click="{ e => openuser() }">
-			<Userbox {userstore} {type} {color} />
-		</div>
-	</div>
 </header>
 
 <style>
@@ -132,8 +147,11 @@
 		background-color: rgb(117, 150, 194);
 		top: 0;
 		padding: 8px;
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		/* grid-template-areas: "btn tit log"; */
+								/* "opt"; */
+		grid-template-columns: min-content auto min-content;
+		/* justify-content: space-between; */
 		z-index: 1;
 	}
 
@@ -144,6 +162,7 @@
 
 	label {
 		z-index: 1;
+		/* grid-area: btn; */
 		padding: 23px;
 		width: 27px;
     	height: 28px;
@@ -261,10 +280,19 @@
 		background-color: rgba(255,255,255,.8);
 	}
 	.titlebar {
+		/* grid-area: tit; */
 		border-radius: 5px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
+	}
+	/* .corner {
+		grid-area: log;
+	} */
+	.bottom {
+		grid-column-end: span 3;
+		display: flex;
 		justify-content: center;
 	}
 	.options {
