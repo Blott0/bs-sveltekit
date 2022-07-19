@@ -24,11 +24,11 @@
 			let ownedGames = data3
             return {
 				props: { stats, friendslist, ownedGames }
-			};
+			}
         } 
         else {			
             this.error(res.status, data.message)
-        };
+        }
 
 	}
     
