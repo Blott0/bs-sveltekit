@@ -37,8 +37,9 @@
     <h3>{user.username}</h3>
     <span>{user._id}</span><br>
     <span>{user.email}</span><br>
-    <label for="games">user owns:</label>
+    
     <input bind:checked="{gamesopened}" id="games" type="checkbox" hidden>
+    <label for="games"><span>user collection</span></label>
     {#if gamesopened}
         <ul transition:slide>
             {#if user.owns && user.owns.length}
@@ -57,6 +58,28 @@
     }
     label {
         cursor: pointer;
+        width: 100%;
+        background-color: rgb(25, 79, 130);
+        display: block;
+    }
+    label > span {
+        color: white;
+        font-weight: bold;
+    }
+    label > span:after {
+        margin-left: 4px;
+        content: '';
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-bottom: 2px solid white;
+        border-left: 2px solid white;
+        transform: rotate(135deg);
+        transition: transform .2s;
+    }
+    input:checked + label > span:after {
+        transform: rotate(-45deg);
+    
     }
     ul {
         list-style: none;
