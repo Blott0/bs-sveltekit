@@ -46,12 +46,12 @@ export async function put (request) {
     else {
 
         const gamescollection = db.collection('games')
-        const games = await gamescollection.find({}).project({ _id: 1, yearpublished: 0, minplayers: 0, maxplayers: 0, playingtime: 0, name: 0, description: 0, image: 0, boardgamepublisher: 0, yearpublished: 0, yearpublished: 0, boardgamedesigner: 0, boardgamecategory: 0, boardgamemechanic: 0, averageweight: 0, teams: 0, created: 0}).toArray()
+        const games = await gamescollection.find({}).toArray()
         let gamesids = []
 
         games.forEach(game => {
             gamesids.push(game._id)
-        });
+        })
         
         if (gamesids.includes(parseInt?.(request.body))) {
 
@@ -80,6 +80,8 @@ export async function put (request) {
                 }
             }
             const logging = await logs.insertOne(log)
+
+            result.game = games[gamesids.indexOf(parseInt(request.body))]
             
             return {
                 status: 200,
@@ -169,7 +171,6 @@ export async function put (request) {
                     const logging = await logs.insertOne(log)
                     
                     result = await collection.updateOne({_id: ObjectId(request.params.id)}, { $push: { owns: parseInt(request.body) } } )
-                
                 }
             })
             if (result === 'no game found') {
@@ -181,7 +182,6 @@ export async function put (request) {
 
             }
             else {
-
                 return {
                     status: 201,
                     body: result
