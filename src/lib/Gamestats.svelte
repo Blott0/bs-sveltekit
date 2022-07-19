@@ -21,7 +21,7 @@
                     if (res.result.points && (res.result.points > highscores[gameid].result.points)) {
                         highscores[gameid] = res
                     }
-                });
+                })
                 
             })
         })
@@ -127,7 +127,7 @@
             <ul transition:slide>
                 {#each gamestats[gameId] as play}
                     <li on:click='{e => togglePlayExpand(play._id)}'>
-                        {play.date}
+                        {play.date} <a href="/stats/{play._id}">-></a>
                         {#if playsExpanded.includes(play._id)}
                             <div transition:slide>
 
