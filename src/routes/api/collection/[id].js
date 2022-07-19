@@ -109,7 +109,7 @@ export async function put (request) {
                         let newArray = []
                         array.forEach(element => {
                             newArray.push(element._)
-                        });
+                        })
                         return newArray
                     }
                     

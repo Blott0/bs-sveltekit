@@ -8,8 +8,6 @@
 	import { fly, fade, slide } from 'svelte/transition'
 	import Userbox from './Userbox.svelte'
 
-	// console.log(userinfo)
-
 	const dispatch = createEventDispatcher()
 	const type = 1
 	let openNav
@@ -21,7 +19,7 @@
 		$page.path.match(/\/games\/[0-9]{3,}/) ? 'Game details' :
 		$page.path.match(/\/users\//) ? 'User details' :
 		$page.path == '/stats' ? 'Stats' :
-		$page.path.match(/^\/stats\/[0-9a-z]*/) ? 'Stats' :
+		$page.path.match(/^\/stats\/[0-9a-z]*/) ? 'Play details' :
 		$page.path == '/about' ? 'About' :
 		$page.path == '/unauthenticated' ? 'login required' : '?'
 
@@ -40,6 +38,13 @@
 				svg: '<svg style="width: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392.7 392.7" style="enable-background:new 0 0 392.663 392.663" xml:space="preserve"><path style="fill:#ffc10d" d="M165.2 21.8V138c0 6-4.8 10.9-10.9 10.9h-28.6l70.6 70.6L267 149h-28.6c-6 0-11-4.8-11-10.9V21.8h-62z"/><path style="fill:#56ace0" d="M21.9 223.2V338c0 18 14.6 32.7 32.7 32.7H338c18 0 32.7-14.7 32.7-32.7V223.2H349v93c0 18-14.6 32.7-32.7 32.7H76.5c-18 0-32.7-14.7-32.7-32.7v-93h-22z"/><path style="fill:#194f82" d="M188.6 242.8c4 4 11.4 4.2 15.4 0l97-97a10.9 10.9 0 0 0-7.8-18.5h-44V11c0-6-4.9-11-11-11h-83.8c-6 0-11 4.9-11 11v116.3h-44c-8.3-.7-15 11.3-7.7 18.6l96.9 96.9zM154.4 149c6 0 10.9-4.8 10.9-10.9V22h62.1v116.3c0 6 4.9 11 11 11h28.5l-70.6 70.5-70.5-70.5h28.6v-.2z"/><path style="fill:#194f82" d="M381.7 201.5h-43.5c-6 0-11 4.8-11 10.9v104c0 6-4.8 10.9-10.9 10.9H76.4c-6 0-11-4.9-11-11v-13h28.8a11 11 0 1 0 0-21.8H65.6v-21.8H116a11 11 0 1 0 0-21.8H65.6v-25.5c0-6-4.9-11-11-11H11c-6 0-10.9 5-10.9 11v125.7c0 30 24.5 54.5 54.6 54.5H338c30 0 54.6-24.5 54.6-54.5V212.5c-.1-6.1-5-11-11-11zM370.8 338c0 18-14.7 32.7-32.7 32.7H54.6C36.6 370.8 22 356 22 338V223.3h21.8v93c0 18 14.7 32.8 32.7 32.8h239.8c18 0 32.8-14.7 32.8-32.8v-93h21.7v114.8h.1z"/></svg>'
 			}
 		],
+		// 'Play details': [
+		// 	{
+		// 		component: 'Friendadder',
+		// 		title: 'add a friend',
+		// 		svg: 'edit play'
+		// 	}
+		// ],
 		Friends: [
 			{
 				component: 'Friendadder',
@@ -149,8 +154,6 @@
 		top: 0;
 		padding: 8px;
 		display: grid;
-		/* grid-template-areas: "btn tit log"; */
-								/* "opt"; */
 		grid-template-columns: min-content auto min-content;
 		/* justify-content: space-between; */
 		z-index: 1;
