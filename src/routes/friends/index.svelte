@@ -29,14 +29,12 @@
     const friendlookup = friendslist.map(f => {return f._id})
     let display = false
 
-    $:console.log(friendlookup)
-
 </script>
 
 <section>
     {#each friendslist as friend}
         <a on:click|preventDefault="{() => {display = friend._id}}" href="/friends/{friend._id}">
-            <Userbox userstore="{friend}" type="1" />
+            <Userbox userstore="{friend}" type="2" />
         </a>
     {/each}
     {#if display}
@@ -70,7 +68,7 @@
 <style>
     section {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-row-gap: 12px;
         place-items: center;
     }
