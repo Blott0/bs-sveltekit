@@ -21,6 +21,7 @@
 		$page.path.match(/\/games\/[0-9]{3,}/) ? 'Game details' :
 		$page.path.match(/\/users\//) ? 'User details' :
 		$page.path == '/stats' ? 'Stats' :
+		$page.path.match(/^\/stats\/[0-9a-z]*/) ? 'Stats' :
 		$page.path == '/about' ? 'About' :
 		$page.path == '/unauthenticated' ? 'login required' : '?'
 
