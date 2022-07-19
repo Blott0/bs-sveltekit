@@ -17,7 +17,7 @@
     let playersteam = {}
     let playLegal = true
 
-    $:console.log(Number.isInteger(selectedgame))
+    // $:console.log(Number.isInteger(selectedgame))
 
     async function getgames(users) {
         let newlist = ownedGames
@@ -70,9 +70,10 @@
             _id: selectedgame ? selectedgame : false
         },
         result: compileResults(playerscores, playerswin),
+        addedby: userinfo._id,
         date: date,
         legal: playLegal
-    };
+    }
 
     async function addPlay() {
         const result = await fetch("/api/stats", { method: "post", body: JSON.stringify(play)})
