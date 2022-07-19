@@ -1,7 +1,7 @@
 import clientPromise from '$lib/mongodb-client'
 import { ObjectId } from 'mongodb'
 
-import cookie from 'cookie';
+import cookie from 'cookie'
 
 export async function get (request) {
 
@@ -34,7 +34,7 @@ export async function post (request) {
     function objectidify(play) {
         play.result.forEach(res => {
             res.player._id = ObjectId(res.player._id)
-        });
+        })
         return play
     }
 
