@@ -107,6 +107,10 @@
 
 <style>
 
+    section {
+        overflow: hidden;
+    }
+    
     img {
         max-width: 100%;
     }
