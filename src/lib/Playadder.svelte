@@ -9,17 +9,20 @@
 
     const dispatch = createEventDispatcher()
 
-    let date = new Date().toISOString().slice(0,10);
+    let date = new Date().toISOString().slice(0,10)
     let selectedplayers = []
     let selectedgame
     let playerscores = {}
     let playerswin = {}
+    let playersteam = {}
     let playLegal = true
+
+    $:console.log(Number.isInteger(selectedgame))
 
     async function getgames(users) {
         let newlist = ownedGames
         for (let index = 0; index < selectedplayers.length; index++) {
-            const user = selectedplayers[index];
+            const user = selectedplayers[index]
             if (user !== userinfo._id) {
                 const response = await fetch("/api/collection/" + user, {method: 'get'})
                 const usercollection = await response.json()
@@ -34,7 +37,7 @@
         table[userinfo._id] = userinfo.username
         list.forEach(item => {
             table[item._id] = item.name ? item.name : item.username
-        });
+        })
         return table
     }
 
@@ -53,8 +56,11 @@
                 points: playerscores[i] ? playerscores[i] : false,
                 win: playerswin[i] ? true : false
             }
+            if (playersteam[i]) {
+                newscore.team = playersteam[i]
+            }
             newresults.push({ result: newscore, player: newplayer, team: false })
-        });
+        })
         return newresults
     }
 
@@ -137,16 +143,21 @@
                         <label for="win{i}">victory:</label>
                         <input id="win{i}" bind:checked="{playerswin[i]}" type="checkbox">
                     </span>
+                    <span>
+                        <label for="team{i}">team:</label>
+                        <input id="team{i}" bind:value="{playersteam[i]}" type="text">
+                    </span>
                 </span>
             {/each}
-            
 
         </div>
         <hr>
             
         {/if}
         <span class="button">
-            <input type="submit">
+            {#if Number.isInteger(selectedgame)}
+                <input type="submit">
+            {/if}
         </span>
     </fieldset>
 </form>
