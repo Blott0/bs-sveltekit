@@ -13,13 +13,12 @@
 			}
 		}
 	}
-	
 
 </script>
 
 <script>
 	
-	import Header from '$lib/header/Header.svelte'
+	import Header from '$lib/Header.svelte'
 	import Screen from '$lib/Screen.svelte'
 	import Popover from '$lib/Popover.svelte'
 	import Usereditor from '$lib/Usereditor.svelte'
